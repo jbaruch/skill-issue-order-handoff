@@ -20,7 +20,8 @@ Billing note its four headings.
 
 ## Reuse the lookup
 
-Before the change, Codex created `scratch_lookup.py` and ran
+For the [lookup request](../prompts/lookup.md), Codex created
+`scratch_lookup.py` and ran
 `python3 scratch_lookup.py 1042`. After the change, it ran
 `python3 scripts/lookup_order.py 1042`. Both found 2500 cents captured
 and 2500 cents pending.
@@ -35,7 +36,8 @@ second. The two sessions also had different input and cache usage.
 
 ## Move the save instruction into a rule
 
-Codex saved the already-written note next to the example in `support/`.
+Codex saved the [already-written note](../prompts/save.md) next to the
+example in `support/`.
 After adding `AGENTS.md` and removing the save instruction from the skill,
 Codex saved the same note under `drafts/`. The contents matched. In the
 second Reflection, it pointed to the rule in `AGENTS.md` and explained

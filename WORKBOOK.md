@@ -114,11 +114,14 @@ Check the file the agent names. In Codex, the project rule file is
 Then paste the [save request](prompts/save.md) in the same session.
 The note is already written. Look at where the agent saved it.
 
-**What you build.** Move the save instruction into a project rule that
-applies across tasks. In the same rule, write "Captured Only. Count completed payments as paid and
-list pending holds separately." Use `AGENTS.md` for Codex,
-`CLAUDE.md` for Claude Code, or an always-applied rule under
-`.cursor/rules/` for Cursor. Remove the save instruction from the skill.
+**What you build.** Open `triage-order/SKILL.md` in this practice folder.
+In Codex, look under `.agents/skills/`. In Claude Code, use
+`.claude/skills/`, and in Cursor, use `.cursor/skills/`. Move the
+instruction to save under `drafts/` into a project rule. In the same rule, write
+"Captured Only. Count completed payments as paid and list pending
+holds separately." Use `AGENTS.md` for Codex, `CLAUDE.md` for Claude
+Code, or an always-applied rule under `.cursor/rules/` for Cursor.
+Remove the save instruction from the skill.
 
 **After.** Start a fresh session in the same folder. Ask the same
 opening questions, then paste the same save request. Compare the
@@ -179,10 +182,10 @@ Repeat the root save request. Read the tool result and check whether
 The root save should report your block message. If it reports a hook
 error, check the Python line, reinstall the hook, and rerun both saves.
 
-**Reflection.** Ask "Did you try to write the file? Why did the first
-attempt work and the second stop? What did the hook return?" Ask the
-agent to show the file it could save. The rule guided the agent in the
-last lab. The hook here can stop a call after the agent chooses to make it.
+**Reflection.** Ask "Which calls reached the save tool? Why did the
+hook stop the root save? Show me the hook message and the file you
+saved under `drafts/`." The hook can stop the call before the save
+tool runs.
 
 **Working copy.** `4-solved` includes the hook. It uses the same two
 prompts. If your client doesn't show the local tool or the hook result,

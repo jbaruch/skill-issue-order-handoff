@@ -5,9 +5,9 @@ as the live exercise.
 
 ## Skills, scripts and rules
 
-[What we observed in the first three labs](first-three.md) links the
-request, the files read or written, and the result. Treat skill selection
-as unknown if a run shows only the list of available skills.
+[The first three labs](first-three.md) document the files the agent read
+or wrote and the result. Treat skill selection as unknown if a run
+shows only the list of available skills.
 
 ## Hooks
 
@@ -17,14 +17,16 @@ denial after the hook, and the successful write under `drafts/`.
 ## Jev
 
 Compare [the reasoning run](reasoning.jsonl) with [the Jev run](jev.jsonl).
-The recorded pair uses the same three tickets. The Jev log includes the follow-up call
-for the unclear ticket.
+The recorded pair uses the same three tickets. The Jev log includes the
+follow-up call for the unclear ticket.
 
 Both chose Billing, Shipping, and Unclear in that order. The three
 reasoning-only calls took 12.89 seconds in total. The Jev run took 3.97
 seconds including the reasoning follow-up. These are elapsed times from
-one run of the lab on the presenter's machine. The logs give token usage
-and include no dollar charges.
+one run of the lab on the presenter's machine. The two paths recorded
+54,536 and 19,268 input tokens, respectively. Use the per-model
+counts and cached tokens in the logs when discussing cost. A dollar
+comparison also needs model prices or billing records.
 
 ## Copilot
 
