@@ -122,15 +122,25 @@ the [save request](prompts/save.md) as the first message. Check where the
 note landed and keep that session available for Reflection. In the
 recorded run, the agent saved the note next to the example in `support/`.
 
-**What you build.** Open `triage-order/SKILL.md` in this practice folder.
-In Codex, look under `.agents/skills/`. In Claude Code, use
-`.claude/skills/`, and in Cursor, use `.cursor/skills/`. Move the
-instruction to save under `drafts/` into a project rule. In the same rule, write
-"Captured Only. Count completed payments as paid and list pending
-holds separately." At the top of the practice folder, use `AGENTS.md`
-for Codex or `CLAUDE.md` for Claude Code. In Cursor, use
-`.cursor/rules/order-notes.mdc` and set `alwaysApply: true` in its
-header. Remove the save instruction from the skill.
+**What you build.** At the top of the practice folder, create `AGENTS.md`
+for Codex or `CLAUDE.md` for Claude Code. In Cursor, create
+`.cursor/rules/order-notes.mdc` and add a header with `alwaysApply: true`
+between two lines containing `---`. Paste this rule text into the file.
+
+```markdown
+# Brickbox order notes
+
+Save support notes under `drafts/` so a teammate can review them before
+sending them to a customer.
+
+Captured Only. Count completed payments as paid. Report pending holds separately.
+```
+
+Open `triage-order/SKILL.md` in the practice folder. In Codex, look under
+`.agents/skills/`. In Claude Code, use `.claude/skills/`, and in Cursor,
+use `.cursor/skills/`. Remove any old lines about saving notes under
+`drafts/` and listing completed payments separately from holds. The
+project rule now covers both.
 
 **After.** Start a fresh session in the same folder and paste the same
 save request first. Compare both file paths and check that the text
