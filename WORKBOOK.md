@@ -27,10 +27,10 @@ or result behind its answer. If it can only infer a cause, ask it to say so.
 Its triage skill says it handles both order questions and questions
 about what comes in a kit.
 
-**Before.** Ask your agent the [kit question](prompts/product.md). If it
-opens the order skill and still answers the kit question, ask which
-instructions it followed or skipped and why, then use the
-[recorded reply](evidence/first-three.md#skill-description-and-instructions)
+**Before.** Ask your agent the [kit question](prompts/product.md). In the
+[recorded run](evidence/first-three.md#skill-description-and-instructions),
+it opened the order skill and asked for an order number. If yours takes
+a different path, ask what it opened and why. Use the recorded reply
 for the comparison and move on.
 
 Open a fresh session in the same practice folder. Paste the full
