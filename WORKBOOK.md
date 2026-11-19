@@ -31,11 +31,14 @@ Have it show the instruction, command, or result behind its answer. If it can on
 ## 1. Write the support skill
 
 **Start here.** Open the `1-before` folder you made during setup.
-Its triage skill says it handles orders and documentation.
+Its triage skill says it handles both order questions and questions
+about what comes in a kit.
 
-**Before.** Give the agent the [README request](prompts/docs.md).
+**Before.** Give the agent the [question about kit contents](prompts/product.md).
 In a separate new session from the same folder, give it the
-[order ticket](prompts/order.md).
+[double-charge ticket](prompts/order.md). Both are support questions.
+The first needs the product facts. The second needs the order record.
+Keep track of which files the agent reads for each.
 
 **What you build.** Change only the skill description to say it prepares
 a handoff from an incoming Brickbox order ticket.
@@ -45,13 +48,16 @@ what led it to the skill. Then keep the description and give the
 handoff four headings in the instructions: customer question, order facts,
 team, and next action. Repeat the order request and read both notes.
 
-**Reflection.** Ask the agent why it opened the skill for each request and
-which words in the description led it there. Ask why the second handoff
-changed shape and which instruction did that. Check what it opened and
-what it wrote as two separate observations.
+**Reflection.** Ask your agent what it opened for each question and why.
+Which words in the first description made the order skill look relevant
+to a question about kit contents? Where did the agent find the answer
+after you narrowed the description? For the double-charge ticket, ask
+which instruction gave the Billing note its four headings.
 
 **Working copy.** Use `1-description` to see the description edit on its
-own, or `1-solved` for the complete skill.
+own, or `1-solved` for the complete skill. Compare the
+[recorded runs](evidence/first-three.md#skill-description-and-instructions)
+if you skip a run.
 
 ## 2. Look up an order
 
@@ -253,8 +259,9 @@ the requests and the checks so you can rerun them when the package changes.
 
 **Start here.** Use [fresh requests](fixtures/eval-cases.json) and the
 [scorecard](answers/scorecard.md). For a billing request, check the
-payment facts and the team named in the note. For a README edit, check
-that the agent stays on task and changes only the README.
+payment facts and the team named in the note. For a product question,
+check that the agent answers from the kit information and leaves the
+project files alone.
 
 **Terminal**
 

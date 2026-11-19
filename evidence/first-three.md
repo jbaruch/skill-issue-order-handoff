@@ -4,15 +4,17 @@ These observations came from separate Codex sessions in new folders.
 
 ## Skill description and instructions
 
-With the broad description, Codex opened `triage-order/SKILL.md` for
-the README request and added the sentence about assembly instructions.
-With the shorter description, it made the README edit with no read
-of that skill in the recorded commands. It still opened the skill for
-the order ticket. The final instructions gave the note four headings:
-Customer question, Order facts, Team, and Next action.
+With the broad description, Codex opened `triage-order/SKILL.md` before
+looking up whether the kits include assembly instructions. With the
+narrower description, it went straight to `data/product-info.md` for the
+answer. For the double-charge ticket, it opened the skill and checked
+order 1042 in both runs. The final instructions gave the Billing note
+four headings: Customer question, Order facts, Team, and Next action.
 
-Give the agent the two descriptions. Ask which words put a README edit
-in scope. Then ask why the final note has four headings.
+Give your agent the [five recorded runs](skill-selection.jsonl) and the
+two descriptions. Ask why the kit question matched the first description,
+where the answer came from in both runs, and which instruction gave
+the Billing note its four headings.
 
 ## Reuse the lookup
 

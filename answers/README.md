@@ -6,7 +6,7 @@ already exists, use it or add `--at` and a new path.
 
 | Lab | First run | Working copy | What to check |
 | --- | --- | --- | --- |
-| 1. Skill | `1-before` | `1-description` then `1-solved` | The order ticket gets a four-part handoff. The README request stays with docs. |
+| 1. Skill | `1-before` | `1-description` then `1-solved` | The agent answers the kit question from the product facts. The order skill opens for the double-charge ticket and gives Billing a four-part note. |
 | 2. Script | `2-before` | `2-solved` | Order 1042 has 2500 cents captured and 2500 cents pending. |
 | 3. Rule | `3-before` | `3-solved` | Ask why the save goes into `drafts/` on a request for an already-written note. |
 | 4. Hook | `4-before` | `4-solved` | The root write is denied after the hook is installed. The file under `drafts/` opens. |

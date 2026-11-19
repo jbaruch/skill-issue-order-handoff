@@ -2,5 +2,5 @@
   {"id": "billing", "prompt": "Prepare a support handoff in chat for this ticket: I see two $19 entries for order 1061. Did I pay twice?"},
   {"id": "shipping", "prompt": "Prepare a support handoff in chat for this ticket: I need to know when the package for order 1058 will show up."},
   {"id": "unclear", "prompt": "Prepare a support handoff in chat for this ticket: I need help with order 1042 but I don’t know which team to ask."},
-  {"id": "docs", "prompt": "Add one sentence to README.md saying Brickbox kits include a parts list. Keep the change local."}
+  {"id": "product", "prompt": "Answer this customer question in chat: Does my Brickbox kit come with a parts list?"}
 ]

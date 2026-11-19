@@ -18,14 +18,13 @@ def files_in(work):
 
 
 def trial(parent, mode, case):
-    work = parent / f"{mode}-{case['id']}"
+    work = (parent / f"{mode}-{case['id']}").resolve()
     create(work, "clean", "codex")
     if mode == "published":
         subprocess.run(["acr", "install", PACKAGE, "--agent", "codex",
                         "--freshness", "none", "--non-interactive"],
                        cwd=work, check=True, stdout=subprocess.DEVNULL)
         subprocess.run(["acr", "realize"], cwd=work, check=True, stdout=subprocess.DEVNULL)
-    baseline = (work / "README.md").read_text()
     before = files_in(work)
     command = ["codex", "exec", "--ignore-user-config", "--ephemeral", "--json",
                "--sandbox", "workspace-write", "-"]
@@ -35,17 +34,17 @@ def trial(parent, mode, case):
     items = [event["item"] for event in events if event["type"] == "item.completed"]
     messages = [item["text"] for item in items if item["type"] == "agent_message"]
     commands = [item["command"] for item in items if item["type"] == "command_execution"]
+    tracked_files = ("SKILL.md", "lookup_order.py", "route.py", "data/orders.json", "product-info.md")
     reads = [cmd.replace(str(work), "<project>") for cmd in commands
-             if any(name in cmd for name in ("SKILL.md", "lookup_order.py", "route.py", "data/orders.json"))]
-    readme = (work / "README.md").read_text()
+             if any(name in cmd for name in tracked_files)]
     after = files_in(work)
     changed = sorted(name for name in before.keys() | after.keys()
                      if before.get(name) != after.get(name))
     return {
         "case": case["id"], "package": PACKAGE if mode == "published" else None,
         "prompt": case["prompt"], "observed_commands": reads,
-        "response": messages[-1] if messages else "",
-        "readme_after": readme if readme != baseline else None, "changed_files": changed,
+        "response": messages[-1].replace(str(work) + "/", "") if messages else "",
+        "changed_files": changed,
         "draft_files": sorted(p.name for p in (work / "drafts").glob("*.md")),
     }
 
@@ -53,7 +52,7 @@ def trial(parent, mode, case):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("mode", choices=("baseline", "published"))
-    parser.add_argument("--case", choices=("billing", "shipping", "unclear", "docs"))
+    parser.add_argument("--case", choices=("billing", "shipping", "unclear", "product"))
     args = parser.parse_args()
     cases = json.loads((SOURCE / "fixtures/eval-cases.json").read_text())
     with tempfile.TemporaryDirectory(prefix="brickbox-eval-") as folder:

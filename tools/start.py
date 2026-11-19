@@ -57,7 +57,7 @@ def write(path, text):
 
 def write_skill(work, skill_dir, stage):
     if stage == "1-before":
-        description = "Use this skill for Brickbox order tickets and for requests to edit Brickbox README.md or Quickstart documentation."
+        description = "Use this skill for Brickbox customer support, including questions about orders, kits, or kit contents."
     else:
         description = "Prepare a support handoff from an incoming Brickbox order ticket."
     if stage == "2-before":
@@ -67,8 +67,8 @@ def write_skill(work, skill_dir, stage):
     elif stage in {"1-before", "1-description"}:
         body = """## Step 1 — Answer the request
 
-Use the files from this project to answer the Brickbox question.
-For a docs request, edit README.md. For a ticket, write a short note.
+For a question about kit contents, read `data/product-info.md` and answer in chat.
+For an order ticket, read `data/orders.json` and write a short note in chat.
 Finish here.
 """
     else:
@@ -123,6 +123,7 @@ def create(work, stage, agent):
     write(work / "README.md", "# Brickbox\n\nBrickbox sells toy-brick kits.\n")
     (work / "data").mkdir()
     shutil.copy2(SOURCE / "fixtures/orders.json", work / "data/orders.json")
+    shutil.copy2(SOURCE / "fixtures/product-info.md", work / "data/product-info.md")
     skill_dir, rule_host, config = NATIVE[agent]
     if stage[0] in "123":
         write_skill(work, skill_dir, stage)

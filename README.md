@@ -34,9 +34,11 @@ agent=codex                 # or claude-code or cursor
 python3 tools/start.py 1-before --agent "$agent"
 ```
 
-Open the printed folder in a new agent session. The helper makes a new
-project with sample orders and keeps your previous work. Each exercise
-has a working copy you can open if you skip an edit or need to catch up.
+Open the printed folder in a new agent session. The helper makes a
+practice project with sample orders, product facts, and the files for
+that exercise. If you already have that folder, reuse it or add
+`--at .workshop/1-fresh` to make another copy. Each exercise has a
+working copy you can open if you skip an edit or need to catch up.
 [Working copies](answers/README.md)
 
 Lab 1 puts the skill in `.agents/skills` for Codex, `.claude/skills`
