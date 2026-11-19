@@ -14,8 +14,9 @@ order and explain whether they were charged twice. Open the
 - [ACR 0.6.0](https://github.com/jbaruch/agentic-context-registry/releases/tag/v0.6.0)
   for the hook and package labs.
 - A [TypeSafe API key](https://console.typesafe.ai/keys) for the live Jev lab.
-  Load it as `TYPESAFE_API_KEY` in your terminal. If you're using the
-  prepared recordings, open [the two logs](evidence/README.md#jev) in your agent.
+  Follow **Terminal · Set your Jev key** in [Lab 5](WORKBOOK.md#5-route-a-ticket-with-jev)
+  to load it in the workshop terminal. If you're using the recordings, open
+  [the two logs](evidence/README.md#jev) in your agent.
 
 **Terminal**
 

@@ -13,14 +13,14 @@ see which requests activate the order skill.
 
 1. Run the [README setup commands](README.md#before-the-workshop) to clone
    the workshop repository, choose your agent, and create `1-before`.
-2. Keep that terminal open in the repository for steps marked **Terminal**.
+2. Keep that terminal open in the repository for **Terminal** commands.
 3. Open the exact folder the setup command prints in your agent. Start a
    fresh session there.
 
-Use the **Reflection** prompts to ask your agent what it did and why.
-Ask in the session where it did the work. Have it show the instruction,
-command, or result behind its answer. If it can only infer a cause, ask
-it to say so.
+Paste **Agent** blocks into the session named in that step. Use the
+**Reflection** prompts after the run, in the session where the agent
+did the work. Ask it to show the instruction, command, or result
+behind its answer.
 
 ## 1. Frontmatter matters
 
@@ -28,20 +28,28 @@ it to say so.
 order skill's description says it covers both orders and kit contents.
 Your agent uses that description to decide when to open the skill.
 
-**Before.** In a fresh session, paste the [kit question](prompts/product.md)
-by itself. In the
-[recorded run](evidence/first-three.md#frontmatter-matters),
-Codex opened the order skill and asked for an order number.
+### Before editing the description
 
-**Reflection.** In that session, ask what the agent opened and why. If
-it opened the order skill, ask which words in the description matched
-the question and why it asked for an order number.
+**Agent · Kit question.** Paste in a fresh session in `1-before`.
 
-Start another fresh session in the same folder. Paste the
-[double-charge ticket](prompts/order.md) by itself. Ask which skill the
-agent opened, if any, and why. Record both replies and what the agent
-actually opened. A session that has already read the skill can reuse
-its instructions, so use a fresh session for each request.
+```text
+Do Brickbox kits come with assembly instructions?
+```
+
+**Agent · Reflection.** Ask in the kit question session.
+
+```text
+Which skill did you open, if any? What in its description matched the request? Why did you answer the way you did?
+```
+
+**Agent · Double-charge ticket.** Start another fresh session in `1-before`.
+
+```text
+I think I was charged twice for order 1042.
+```
+
+Ask the same Reflection questions in that session. Record both replies
+and the files the agent opened.
 
 **What you build.** In `triage-order/SKILL.md`, replace just the
 `description` line at the top:
@@ -50,13 +58,29 @@ its instructions, so use a fresh session for each request.
 description: Prepare a support handoff from an incoming Brickbox order ticket.
 ```
 
-**After.** Run both requests again in fresh sessions. Compare what the
-agent opened and what it said. The kit question should lead to the
-product guide. The double-charge ticket still belongs with the order skill.
+### After editing the description
 
-**Reflection.** In each session, ask why the agent took that path and
-what it read. Why did the kit question go to a different source? What
-in the new description still matched the double-charge ticket?
+**Agent · Kit question.** Paste in a fresh session in the edited folder.
+
+```text
+Do Brickbox kits come with assembly instructions?
+```
+
+**Agent · Double-charge ticket.** Start another fresh session in the edited folder.
+
+```text
+I think I was charged twice for order 1042.
+```
+
+**Agent · Reflection.** Ask in the kit question session.
+
+```text
+What did you open to answer the kit question? What led you there?
+How did the skill description affect your choice?
+```
+
+In the order ticket session, ask which skill it opened and what in
+the description still matched the request.
 
 **Working copy.** Use `1-solved` for the skill with the narrower
 description. If either run takes a different path, ask why, compare with
@@ -71,37 +95,52 @@ and move on.
 python3 tools/start.py 2-before --agent "$agent"
 ```
 
-**Before.** In that folder, give your agent the [same order ticket](prompts/order.md).
+**Agent · Before.** Open a fresh session in `2-before` and paste the ticket.
+
+```text
+I think I was charged twice for order 1042.
+```
+
 The skill gives it a recipe for writing a helper. Open
 `scratch_lookup.py` if it created the file. If the agent ran Python
 directly in the terminal, ask it to show you that code. If it skipped
 writing code, use the [recorded lookup](evidence/first-three.md#reuse-the-lookup)
 for the before run and go straight to the working copy for the after run.
 
-**Reflection.** In the same session, ask how the agent looked up the
-order. Have it show the code it wrote and the command it ran.
+**Agent · Reflection.** Ask in the same session.
 
-**What you build.** Ask the same agent to keep the helper for future tickets.
+```text
+How did you look up the order? Show me the code you wrote and the command you ran.
+```
 
-> Let's reuse the lookup you just wrote. Save a copy as
-> `scripts/lookup_order.py` that takes an order number. Update the lookup
-> step in the triage-order skill to run that script on future tickets.
-> Show me what changed and how you checked it.
+**Agent · Build.** Give the same agent this follow-up.
+
+```text
+Let's reuse the lookup you just wrote. Save a copy as scripts/lookup_order.py that takes an order number. Update the lookup step in the triage-order skill to run that script on future tickets. Show me what changed and how you checked it.
+```
 
 If Codex asks to edit `SKILL.md`, review the proposed lookup change and
 choose **Yes, proceed**. Check the updated skill and script before
 opening the next session.
 
-**After.** In a fresh session paste the same lookup request. Both runs
-should find 2500 cents captured and 2500 cents pending. If the agent
+**Agent · After.** Start a fresh session in the edited folder.
+
+```text
+I think I was charged twice for order 1042.
+```
+
+Both runs should find 2500 cents captured and 2500 cents pending. If the agent
 writes another helper, ask which instruction led it to do that, then
 use `2-solved` for the second run.
 
-**Reflection.** Ask in the new session. "What command did you run?
-Did you have to write lookup code this time? What do we gain by using
-the same script on future tickets?" The same script gives the same
-answer for the same input and data. The agent saves the tokens it
-would spend writing a new helper.
+**Agent · Reflection.** Ask in the new session.
+
+```text
+What command did you run? Did you have to write lookup code this time? What do we gain by using the same script on future tickets?
+```
+
+The same script gives the same answer for the same input and data. The
+agent saves the tokens it would spend writing a new helper.
 
 **Working copy.** To get the reusable script and skill, run
 `python3 tools/start.py 2-solved --agent "$agent"` from the workshop
@@ -117,10 +156,20 @@ from that folder.
 python3 tools/start.py 3-before --agent "$agent"
 ```
 
-**Before.** Open the printed folder in a fresh agent session and paste
-the [save request](prompts/save.md) as the first message. Check where the
-note landed and keep that session available for Reflection. In the
-recorded run, the agent saved the note next to the example in `support/`.
+**Agent · Before.** In a fresh session in `3-before`, paste this first.
+
+```text
+Save this note as a new Markdown file. Preserve the text as supplied.
+
+> Order 1042 · Billing
+>
+> The customer reports a second charge. The order shows one completed
+> payment of $25 and a pending hold of $25. Ask whether the second
+> entry appears as completed.
+```
+
+Check where the note landed and keep that session available for Reflection.
+In the recorded run, it landed next to the example in `support/`.
 
 **What you build.** At the top of the practice folder, create `AGENTS.md`
 for Codex or `CLAUDE.md` for Claude Code. In Cursor, create
@@ -142,20 +191,33 @@ use `.cursor/skills/`. Remove any old lines about saving notes under
 `drafts/` and listing completed payments separately from holds. The
 project rule now covers both.
 
-**After.** Start a fresh session in the same folder and paste the same
-save request first. Compare both file paths and check that the text
-matches. The second note should be in `drafts/`. If the agent saves it
-elsewhere, compare with the [recorded saves](evidence/first-three.md#move-the-save-instruction-into-a-rule).
+**Agent · After.** Start a fresh session in the edited folder and paste this first.
 
-**Reflection.** After both saves, ask each session about the save it
-already made. "Which project rules were loaded at startup? Which skill
-did you open for the save, if any? What made you choose that folder?
-Show me the evidence from that run."
+```text
+Save this note as a new Markdown file. Preserve the text as supplied.
 
-Then ask the second session "If a skill suggested a different folder,
-what would you follow and why?" Have it explain what the practice
-folder's rule required. Some of the other rules may come from your
-own setup.
+> Order 1042 · Billing
+>
+> The customer reports a second charge. The order shows one completed
+> payment of $25 and a pending hold of $25. Ask whether the second
+> entry appears as completed.
+```
+
+Compare both file paths and check that the text matches. The second
+note should be in `drafts/`. Use the [recorded saves](evidence/first-three.md#move-the-save-instruction-into-a-rule)
+if the agent saves it elsewhere.
+
+**Agent · Reflection.** After both saves, ask each session about its own run.
+
+```text
+Which project rules were loaded at startup? Which skill did you open for the save, if any? What made you choose that folder? Show me the evidence from that run.
+```
+
+Then ask the second session.
+
+```text
+If a skill suggested a different folder, what would you follow and why?
+```
 
 **Working copy.** Run `python3 tools/start.py 3-solved --agent "$agent"`
 from the workshop repository. Open the printed folder in a fresh
@@ -175,14 +237,22 @@ folder and reports where it saved it.
 python3 tools/start.py 4-before --agent "$agent"
 ```
 
-**Before.** Open the printed folder in your agent. It has the local
+**Before · Set up Codex.** Open the printed folder in your agent. It has the local
 Brickbox save tool and uses the project from before we added the rule.
 In Codex, trust the practice project if prompted. The `/mcp` command
-lists the connected programs. Check that Brickbox appears, then paste
-the [root save request](prompts/root-write.md). Approve the tool call if
-asked. Look for `1042.md` in the practice folder and check the save result.
-If Brickbox is missing from the tool list, go straight to the
+lists the connected programs. Check that Brickbox appears. If it is
+missing, go straight to the
 [recorded calls](evidence/README.md#hooks) and do the Reflection.
+
+**Agent · Before.** Paste in the session in `4-before`.
+
+```text
+Call the Brickbox save_handoff tool once. Use path `1042.md` and text
+`Order 1042. Forward to Billing.` Report the result.
+```
+
+Approve the tool call if asked. Look for `Called brickbox.save_handoff`
+and `Saved 1042.md` in the session, and check that the file exists.
 
 **What you build.** Open `local-hook/protect_draft_location.py`. The
 first line tells ACR to run the hook with Python. Keep it when you edit.
@@ -190,8 +260,9 @@ The event includes `tool_name` and `tool_input.path`. For the Brickbox save
 tool, allow a Markdown file directly under `drafts/`. Return exit
 status 2 with a short message for other destinations. Return 0 for an
 allowed save or a different tool. The [finished hook](hooks/protect_draft_location.py)
-shows the input fields and the two tool names. Install your hook from
-the workshop repo:
+shows the input fields and the two tool names.
+
+**Terminal · Install the hook.** Run from the workshop repo.
 
 ```sh
 python3 tools/start.py enable-hook --agent "$agent" --at .workshop/4-before
@@ -202,8 +273,8 @@ Codex shows **Hooks need review**, choose **Review hooks**. You can also
 enter `/hooks`. Open **PreToolUse**, select the new hook from the practice
 folder, and press `t` to trust it.
 
-If the first run saved a file, rename it from the workshop repo so you
-can tell whether the second run created a file:
+**Terminal · Move the first save.** Run from the workshop repo if the
+first run created `1042.md`. This lets you check for a new file.
 
 ```sh
 mv .workshop/4-before/1042.md .workshop/4-before/first-run.saved
@@ -212,17 +283,31 @@ mv .workshop/4-before/1042.md .workshop/4-before/first-run.saved
 If the first run left no file, use the first row of the recorded calls
 for the before result and continue.
 
-Repeat the root save request. Read the tool result and check whether
-`1042.md` appeared again. Finally paste the
-[allowed save request](prompts/draft-write.md) and open `drafts/1042.md`.
-The root save should report your block message. If it reports a hook
-error, check the first line and try the working copy once. If the
-client still can't run it, use the recorded calls for Reflection.
+**Agent · After · Attempt the same save.** Paste in the session with the hook trusted.
 
-**Reflection.** Ask "Which calls reached the save tool? Why did the
-hook stop the root save? Show me the hook message and the file you
-saved under `drafts/`." The hook can stop the call before the save
-tool runs.
+```text
+Call the Brickbox save_handoff tool once. Use path `1042.md` and text
+`Order 1042. Forward to Billing.` Report the result.
+```
+
+Look for the hook's block message and confirm that `1042.md` is absent.
+If the client reports a hook error, try the working copy once or use
+the recorded calls.
+
+**Agent · After · Save to the allowed folder.** Paste in the same session.
+
+```text
+Call the Brickbox save_handoff tool once. Use path `drafts/1042.md` and
+text `Order 1042. Forward to Billing.` Report the result.
+```
+
+Open `drafts/1042.md` and check the text.
+
+**Agent · Reflection.** Ask in the session with the hook enabled.
+
+```text
+Which calls reached the save tool? Why did the hook stop the first attempt in this session? Show me the hook message and the file you saved.
+```
 
 **Working copy.** `4-solved` includes the hook. It uses the same two
 prompts. If your client doesn't show the local tool or the hook result,
@@ -236,43 +321,78 @@ order from an exact number. A decision model picks a team from a fixed
 list. A reasoning model works out what to ask when the ticket is unclear.
 [The rule for choosing a mechanism](https://github.com/jbaruch/coding-policy/blob/main/skills/coding-contracts/references/script-delegation.md)
 
-**Start here.** Use the three messages in [the routing cases](fixtures/routes.json).
-The task is to choose Billing, Shipping, or Unclear. If the message is
-unclear, the next step is one question for the customer.
+**Start here.** Each ticket goes to Billing, Shipping, or Unclear. An
+unclear ticket needs one question for the customer. The recorder uses
+Codex for the before run and for that follow-up after Jev.
 
-**Before.** Let the reasoning model choose. The recorder below uses
-Codex for the reasoning run and for Jev's follow-up on the unclear
-ticket. If you use a different agent, ask it to classify the three
-messages and use the recorded pair for the time and token comparison.
-
-**Terminal · from the folder you cloned**
+**Terminal · Before · Reasoning model.** Run from the workshop repo.
 
 ```sh
 python3 tools/measure.py reasoning > reasoning.jsonl
 ```
 
-**What you build.** Make `5-before` with `python3 tools/start.py 5-before --agent "$agent"`.
+**Agent · Before · Claude Code or Cursor.** If you're doing the before
+run in your agent, paste the block below. Use the saved pair of logs
+for the timing and token comparison.
+
+```text
+Classify each Brickbox ticket as Billing, Shipping, or Unclear.
+For an unclear ticket, ask one question that would help route it.
+
+1. I think I was charged twice for order 1042.
+2. When will order 1058 arrive?
+3. Something is wrong with order 1061.
+```
+
+**Terminal · Build.** Create the practice folder from the workshop repo.
+
+```sh
+python3 tools/start.py 5-before --agent "$agent"
+```
+
 In that folder, fill in the three choices in `scripts/route.py`. The finished code is in `5-solved`
 under `scripts/route.py`. Expand the option descriptions so the model
 can tell a charge question from a delivery question. Route Unclear to
 your reasoning model, which asks one question.
 
-**After.** Run the same tickets with Jev and compare the two logs. For
-the live run, load your TypeSafe key in the terminal that runs the recorder.
-If either run is unavailable, use both [saved logs](evidence/README.md#jev)
-for Reflection so the tickets and calls are comparable.
+**Terminal · Set your Jev key.** Create an API key in the
+[TypeSafe console](https://console.typesafe.ai/keys). Run this block
+in the same Bash or Zsh terminal you'll use for the next command.
+Paste your key when asked and press Enter. The terminal hides the
+characters as you paste.
 
-**Terminal · from the folder you cloned**
+```sh
+{
+  printf 'Paste your TypeSafe API key and press Enter. '
+  IFS= read -rs TYPESAFE_API_KEY
+  printf '\n'
+  export TYPESAFE_API_KEY
+}
+```
+
+**Terminal · After · Jev.** Run from the workshop repo in that same terminal.
 
 ```sh
 python3 tools/measure.py jev --script .workshop/5-before/scripts/route.py > jev.jsonl
 ```
 
-**Reflection.** Give your agent the two logs. Ask "Why did one case go
-straight to Billing and another need a follow-up? Which calls explain
-the difference in time and tokens? What can we tell about cost from
-these logs?" Count any reasoning call made after Jev. Use the same
-tickets in both runs. Check the cost field before making a dollar claim.
+If you see a connection error on macOS, try the system certificate file
+and run the Jev command again from the same terminal.
+
+```sh
+export SSL_CERT_FILE=/etc/ssl/cert.pem
+```
+
+**Agent · Reflection.** Give your agent both logs, `reasoning.jsonl` and
+`jev.jsonl`. If either run is unavailable, use the two saved logs together.
+[Reasoning log](evidence/reasoning.jsonl) · [Jev log](evidence/jev.jsonl)
+
+```text
+Compare these two runs on the same tickets. Why did one case go straight
+to Billing and another need a follow-up? Which model calls explain the
+difference in time and tokens? Include the reasoning call after Jev.
+What can these logs tell us about cost?
+```
 
 **Working copy.** `5-solved` has the completed Jev script. To use it, create that
 folder with `tools/start.py` and use its script path in the last command. Open the
@@ -287,9 +407,17 @@ python3 tools/start.py 6-before --agent "$agent"
 python3 tools/start.py clean --agent "$agent" --at .workshop/package-consumer
 ```
 
-**Before.** Open a fresh agent session in `package-consumer` and give
-it the [same order ticket](prompts/order.md). After it replies, ask
-which files it used and whether it had a lookup script.
+**Agent · Before.** Open a fresh session in `package-consumer`.
+
+```text
+I think I was charged twice for order 1042.
+```
+
+**Agent · Before Reflection.** After it replies, ask in the same session.
+
+```text
+Which files did you use for the ticket? Did you have a lookup script?
+```
 
 **What you build.** Open `.workshop/6-before/package/agent-plugin.yaml`.
 The manifest is the package's list of files. Declare the triage skill,
@@ -297,7 +425,7 @@ the rule, and the hook. The lookup and Jev scripts live inside the skill
 folder and travel with it. Use the [working manifest](agent-plugin.yaml)
 if you need an example.
 
-**Terminal · from the workshop repo**
+**Terminal · Validate and install the package.** Run from the workshop repo.
 
 ```sh
 (
@@ -309,15 +437,22 @@ if you need an example.
 )
 ```
 
-**After.** Open a fresh agent session in that same copy. Give it the order ticket
-again and have it show where it found the lookup script.
+**Agent · After.** Open a fresh session in `package-consumer` after installing.
+
+```text
+I think I was charged twice for order 1042.
+```
+
 If the agent reports that live routing is unavailable, check the local lookup
 and payment facts. The live Jev call runs in your terminal in Lab 5.
 
-**Reflection.** Ask "How are the artifacts organized in the package?
-Where did the rule, skill, scripts, and hook land here? Why did each go
-there? Show me a file in both places and the part of the manifest that
-describes it."
+**Agent · Reflection.** Ask in the session with the installed package.
+
+```text
+Which files did you use for the ticket? How are the rule, skill, scripts,
+and hook organized in the package? Where did they land in this project
+and why? Show me an example on both sides and the manifest entry for it.
+```
 
 **Working copy.** Use `6-solved` for the complete manifest and change the
 validate and install paths above to `../6-solved/package`. This is a local
@@ -333,10 +468,15 @@ In GitHub, the review job installs the Brickbox release so Copilot can
 use the project's rules to review a code change.
 
 Baruch will show the built-in GitHub Copilot reviewer using the published
-package. After the demo, give your agent the
-[review](evidence/README.md#copilot) and the
-[rule](rules/order-notes.md). Ask which finding applies the rule about
-pending holds and how the code change would affect a support note.
+package. After the demo, give your agent the [review](evidence/README.md#copilot)
+and the [rule](rules/order-notes.md).
+
+**Agent · Reflection**
+
+```text
+Which review finding applies the rule about pending holds? How would
+that code change affect a support note?
+```
 
 ## 7. Evals are tests for context artifacts
 
@@ -348,8 +488,7 @@ In Lab 1, the agent could open the right skill and find the right payment
 facts while writing straight to the customer. Here, we also check whether
 the reply gives Billing a handoff it can act on.
 
-**Start here.** Use [fresh requests](fixtures/eval-cases.json) and the
-[scorecard](answers/scorecard.md). For a billing request, check the
+**Start here.** Read the [scorecard](answers/scorecard.md). For a billing request, check the
 payment facts and the team named in the reply or draft. For a product
 question, check the answer and whether the agent left the files alone.
 
@@ -360,14 +499,27 @@ python3 tools/start.py clean --agent "$agent" --at .workshop/eval-before
 python3 tools/start.py clean --agent "$agent" --at .workshop/eval-after
 ```
 
-**Before.** Copy the `prompt` text from one case at a time into a fresh
-agent session in `eval-before`. Paste each request by itself. Save the
-replies and any drafts outside the practice folder for scoring.
+**Agent · Before.** Paste each of these four blocks by itself. Start a
+fresh session in `eval-before` for each one. Keep the replies and any
+drafts outside the practice folder for scoring.
 
-**What you build.** Install Baruch's published release in `eval-after`,
-starting with the command below.
+```text
+I see two $19 entries for order 1061. Did I pay twice?
+```
 
-**Terminal · from the workshop repo**
+```text
+I need to know when the package for order 1058 will show up.
+```
+
+```text
+I need help with order 1042 but I don’t know which team to ask.
+```
+
+```text
+Does my Brickbox kit come with a parts list?
+```
+
+**Terminal · Install the published package.** Run from the workshop repo.
 
 ```sh
 (
@@ -381,12 +533,17 @@ starting with the command below.
 If the release fails to install, use both [saved runs](evidence/README.md#eval)
 and go to Reflection.
 
-**After.** Run the same cases in the installed copy. Give the two
-runs and your scorecard to your agent. Ask it to show where each
-point came from.
+**Agent · After.** Repeat the four prompts above, one per fresh session
+in `eval-after`. Keep the replies and any drafts for scoring.
 
-**Reflection.** Ask "Why did one run score higher? Show me the note,
-choice, or edit that earned the point. What would you change and rerun?"
+**Agent · Reflection.** Give the agent both sets of replies and drafts
+and the scorecard.
+
+```text
+Score both runs using this scorecard. Show which reply, draft, or file
+change earned each point. What would you change and rerun?
+```
+
 If scores tie, ask which claims about improvement the results support.
 
 **Working copy.** The [saved runs](evidence/README.md#eval) and scorecard
