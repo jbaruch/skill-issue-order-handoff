@@ -27,7 +27,11 @@ or result behind its answer. If it can only infer a cause, ask it to say so.
 Its triage skill says it handles both order questions and questions
 about what comes in a kit.
 
-**Before.** Ask your agent the [kit question](prompts/product.md).
+**Before.** Ask your agent the [kit question](prompts/product.md). If it
+opens the order skill and still answers the kit question, ask which
+instructions it followed or skipped and why, then use the
+[recorded reply](evidence/first-three.md#skill-description-and-instructions)
+for the comparison and move on.
 
 Open a fresh session in the same practice folder. Paste the full
 [double-charge ticket prompt](prompts/order.md) about order 1042. For
@@ -36,9 +40,9 @@ both requests, record the agent's reply and the files it opened.
 **What you build.** Change only the skill description to say it prepares
 a handoff from an incoming Brickbox order ticket.
 
-**After.** Run both requests again in fresh sessions and ask the agent
-what led it to the skill. Compare its replies before and after you
-changed the description. Then keep the description and give the
+**After.** Run both requests again in fresh sessions. Compare what the
+agent opened and what it said before and after you changed the
+description. Then keep the description and give the
 handoff four headings in the instructions: customer question, order facts,
 team, and next action. Repeat the order request and read both notes.
 Check that the finished note gives Billing these facts and the next step.
@@ -51,8 +55,9 @@ Check that the finished note gives Billing these facts and the next step.
 
 **Reflection.** Ask your agent what it opened for each question and why.
 If it opened the order skill for the kit question, ask which words in
-the description made the skill look relevant and how its instructions
-affected the reply. After the change, ask where it found the kit facts.
+the description made the skill look relevant and which instructions it
+followed. After the change, ask where it found the kit facts and why it
+used that source.
 For the double-charge ticket, ask which instruction gave the Billing
 note its four headings.
 
@@ -71,7 +76,10 @@ python3 tools/start.py 2-before --agent "$agent"
 
 **Before.** In that folder, give your agent the [lookup request](prompts/lookup.md).
 The skill tells it to write a small helper from a recipe. Open
-`scratch_lookup.py`, the file it wrote to read the order data.
+`scratch_lookup.py`, the file it wrote to read the order data. If the
+file is missing, ask the agent how it found the order, then use the
+[recorded lookup](evidence/first-three.md#reuse-the-lookup) for the
+comparison and start from `2-solved`.
 
 **What you build.** Save a reusable lookup in `scripts/lookup_order.py`.
 It takes an order number, reads `data/orders.json`, and prints the
@@ -80,7 +88,9 @@ just reviewed. Change the skill to call that file rather than giving the
 agent the recipe.
 
 **After.** In a fresh session paste the same lookup request. Both runs
-should find 2500 cents captured and 2500 cents pending.
+should find 2500 cents captured and 2500 cents pending. If the agent
+writes another helper, ask which instruction led it to do that, then
+use `2-solved` for the second run.
 
 **Reflection.** Ask "How did you find the order each time? Show me the
 helper you wrote in the first run and the script you called in the
@@ -88,8 +98,11 @@ second. Why reuse that script next time?" Listen for two benefits.
 The same script gives the same answer for the same input and data.
 The agent also saves the tokens it would spend writing a new helper.
 
-**Working copy.** `2-solved` has the reusable script and the skill that
-calls it. Run `python3 scripts/lookup_order.py 1042` there.
+**Working copy.** To get the reusable script and skill, run
+`python3 tools/start.py 2-solved --agent "$agent"` from the workshop
+repository. Open the printed folder and use the same lookup request.
+To see what the script prints, run `python3 scripts/lookup_order.py 1042`
+from that folder.
 
 ## 3. Set a project rule
 
@@ -106,24 +119,27 @@ example note in `support/`. Start by asking the agent:
 > folder when the session started? Point to the rule file for each one.
 > How do those rules differ from skills?
 
-Check the file the agent names. In Codex, the project rule file is
-`AGENTS.md` inside this practice folder. You'll create it in the next step.
+Check any paths your agent names. Rules it reports may come from its
+personal setup. You'll add this practice folder's rule in the next step.
 
 Then paste the [save request](prompts/save.md) in the same session.
-The note is already written. Look at where the agent saved it.
+The note is already written. Check where the agent saved it. In the
+recorded run it saved the note in `support/`.
 
 **What you build.** Open `triage-order/SKILL.md` in this practice folder.
 In Codex, look under `.agents/skills/`. In Claude Code, use
 `.claude/skills/`, and in Cursor, use `.cursor/skills/`. Move the
 instruction to save under `drafts/` into a project rule. In the same rule, write
 "Captured Only. Count completed payments as paid and list pending
-holds separately." Use `AGENTS.md` for Codex, `CLAUDE.md` for Claude
-Code, or an always-applied rule under `.cursor/rules/` for Cursor.
-Remove the save instruction from the skill.
+holds separately." At the top of the practice folder, use `AGENTS.md`
+for Codex or `CLAUDE.md` for Claude Code. In Cursor, use
+`.cursor/rules/order-notes.mdc` and set `alwaysApply: true` in its
+header. Remove the save instruction from the skill.
 
 **After.** Start a fresh session in the same folder. Ask the same
-opening questions, then paste the same save request. Compare the
-two files and the locations the agent chose.
+opening questions, then paste the same save request. The new note
+should be in `drafts/`. If the agent saves it elsewhere, ask which
+instruction it followed and compare with the [recorded saves](evidence/first-three.md#move-the-save-instruction-into-a-rule).
 
 **Reflection.** Ask before and after the change. "Which rules are loaded
 when this session starts? What's the difference between an always-on
@@ -132,7 +148,9 @@ request, if any? Why did you choose that folder? Show me the instruction."
 A save-only request gives the project rule a job even if the agent
 never opens the triage skill.
 
-**Working copy.** `3-solved` has the rule in the right place for your agent.
+**Working copy.** Run `python3 tools/start.py 3-solved --agent "$agent"`
+from the workshop repository. Open the printed folder in a fresh
+session and paste the same save request.
 
 ## 4. Block a write
 
