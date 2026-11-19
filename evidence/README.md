@@ -28,6 +28,23 @@ one run of the lab on the presenter's machine. The two paths recorded
 counts and cached tokens in the logs when discussing cost. A dollar
 comparison also needs model prices or billing records.
 
+## Local package
+
+In a clean Codex practice folder, `acr validate`, `acr install`,
+`acr realize`, and `acr check` all passed for the local working copy.
+Compare the [package manifest](../agent-plugin.yaml) with the files
+ACR put in the project.
+
+| Package source | Location in the Codex project |
+| --- | --- |
+| `skills/triage-order/SKILL.md` | `.codex/skills/acr__jbaruch__skill-issue-order-handoff__triage-order/SKILL.md` |
+| `skills/triage-order/scripts/` | `scripts/` next to the installed `SKILL.md` |
+| `rules/order-notes.md` | `AGENTS.md` |
+| `hooks/protect_draft_location.py` | `.codex/hooks/acr__jbaruch__skill-issue-order-handoff__protect-draft-location/protect_draft_location.py` |
+
+Ask your agent which entry in the manifest put each file there and how
+Codex discovers it.
+
 ## Copilot
 
 The [first review](https://github.com/jbaruch/skill-issue-order-handoff/pull/1#pullrequestreview-5979482565)

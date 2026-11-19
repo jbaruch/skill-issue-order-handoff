@@ -166,6 +166,8 @@ In Codex, trust this workshop project and check that `/mcp` lists Brickbox.
 If prompted in another client, approve the local Brickbox tool. Paste
 the [root save request](prompts/root-write.md). The agent calls the tool.
 Look for `1042.md` in the project folder.
+If Brickbox is missing from the tool list, go straight to the
+[recorded calls](evidence/README.md#hooks) and do the Reflection.
 
 **What you build.** Open `local-hook/protect_draft_location.py`. The
 first line tells ACR to run the hook with Python. Keep it when you edit.
@@ -185,18 +187,22 @@ Codex shows **Hooks need review**, choose **Review hooks**. You can also
 enter `/hooks`. Open **PreToolUse**, select the new hook from the practice
 folder, and press `t` to trust it.
 
-From the workshop repo, rename the file from the first run so you can
-tell whether the second run created a file:
+If the first run saved a file, rename it from the workshop repo so you
+can tell whether the second run created a file:
 
 ```sh
 mv .workshop/4-before/1042.md .workshop/4-before/first-run.saved
 ```
 
+If the first run left no file, use the first row of the recorded calls
+for the before result and continue.
+
 Repeat the root save request. Read the tool result and check whether
 `1042.md` appeared again. Finally paste the
 [allowed save request](prompts/draft-write.md) and open `drafts/1042.md`.
 The root save should report your block message. If it reports a hook
-error, check the Python line, reinstall the hook, and rerun both saves.
+error, check the first line and try the working copy once. If the
+client still can't run it, use the recorded calls for Reflection.
 
 **Reflection.** Ask "Which calls reached the save tool? Why did the
 hook stop the root save? Show me the hook message and the file you
@@ -224,6 +230,12 @@ Codex for the reasoning run and for Jev's follow-up on the unclear
 ticket. If you use a different agent, ask it to classify the three
 messages and use the recorded pair for the time and token comparison.
 
+**Terminal · from the folder you cloned**
+
+```sh
+python3 tools/measure.py reasoning > reasoning.jsonl
+```
+
 **What you build.** Make `5-before` with `python3 tools/start.py 5-before --agent "$agent"`.
 In that folder, fill in the three choices in `scripts/route.py`. The finished code is in `5-solved`
 under `scripts/route.py`. Expand the option descriptions so the model
@@ -238,7 +250,6 @@ for Reflection so the tickets and calls are comparable.
 **Terminal · from the folder you cloned**
 
 ```sh
-python3 tools/measure.py reasoning > reasoning.jsonl
 python3 tools/measure.py jev --script .workshop/5-before/scripts/route.py > jev.jsonl
 ```
 
@@ -294,7 +305,9 @@ there? Show me a file in both places and the part of the manifest that
 describes it."
 
 **Working copy.** Use `6-solved` for the complete manifest and change the
-install path above to `../6-solved/package`. This is a local install.
+validate and install paths above to `../6-solved/package`. This is a local
+install. If it fails, use the [recorded file locations](evidence/README.md#local-package)
+for Reflection.
 
 ### Presenter demo · one artifact, shared rules
 
@@ -329,8 +342,8 @@ python3 tools/start.py clean --agent "$agent" --at .workshop/eval-before
 python3 tools/start.py clean --agent "$agent" --at .workshop/eval-after
 ```
 
-**Before.** Give one request at a time to the agent in `eval-before`.
-Use a fresh session for each. Keep the responses in a scratch note
+**Before.** Copy the `prompt` text from one case at a time into a fresh
+agent session in `eval-before`. Keep the responses in a scratch note
 outside the practice folder and record any edits made by the agent.
 
 **What you build.** Install Baruch's published release in `eval-after`,
@@ -346,6 +359,9 @@ starting with the command below.
   acr check
 )
 ```
+
+If the release fails to install, use both [saved runs](evidence/README.md#eval)
+and go to Reflection.
 
 **After.** Run the same cases in the installed copy. Give the two
 runs and your scorecard to your agent. Ask it to show where each
