@@ -57,7 +57,7 @@ def write(path, text):
 
 def write_skill(work, skill_dir, stage):
     if stage == "1-before":
-        description = "Help with Brickbox orders, inventory, support tickets, and documentation."
+        description = "Use this skill for Brickbox order tickets and for requests to edit Brickbox README.md or Quickstart documentation."
     else:
         description = "Prepare a support handoff from an incoming Brickbox order ticket."
     if stage == "2-before":
@@ -160,7 +160,8 @@ raise SystemExit(0)
         write(local_scripts / "route.py", route)
     if stage in {"6-before", "6-solved"}:
         for entry in ("skills", "rules", "hooks"):
-            shutil.copytree(SOURCE / entry, work / "package" / entry)
+            shutil.copytree(SOURCE / entry, work / "package" / entry,
+                            ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
         shutil.copy2(SOURCE / "LICENSE", work / "package/LICENSE")
         manifest = (SOURCE / "agent-plugin.yaml").read_text()
         if stage == "6-before":

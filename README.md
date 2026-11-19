@@ -2,7 +2,7 @@
 
 QCon San Francisco · How To Write Skills That Actually Work
 
-Build a skill that turns a customer’s order question into a note for
+Build a skill that turns a customer's order question into a note for
 the next support teammate. Open the [workbook](WORKBOOK.md) to start.
 
 ## Before the workshop
@@ -12,7 +12,7 @@ the next support teammate. Open the [workbook](WORKBOOK.md) to start.
 - [ACR 0.6.0](https://github.com/jbaruch/agentic-context-registry/releases/tag/v0.6.0)
   for the hook and package labs.
 - A [TypeSafe API key](https://console.typesafe.ai/keys) for the live Jev lab.
-  Load it as `TYPESAFE_API_KEY` in your terminal. If you’re using the
+  Load it as `TYPESAFE_API_KEY` in your terminal. If you're using the
   prepared recordings, open [the two logs](evidence/README.md#jev) in your agent.
 
 **Terminal**

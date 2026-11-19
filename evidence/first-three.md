@@ -1,0 +1,38 @@
+# Compare the first three labs
+
+These observations came from separate Codex sessions in new folders.
+
+## Skill description and instructions
+
+With the broad description, Codex opened `triage-order/SKILL.md` for
+the README request and added the sentence about assembly instructions.
+With the shorter description, it made the README edit with no read
+of that skill in the recorded commands. It still opened the skill for
+the order ticket. The final instructions gave the note four headings:
+Customer question, Order facts, Team, and Next action.
+
+Give the agent the two descriptions. Ask which words put a README edit
+in scope. Then ask why the final note has four headings.
+
+## Reuse the lookup
+
+Before the change, Codex created `scratch_lookup.py` and ran
+`python3 scratch_lookup.py 1042`. After the change, it ran
+`python3 scripts/lookup_order.py 1042`. Both found 2500 cents captured
+and 2500 cents pending.
+
+Ask what the agent had to write in the first run and why it could run
+the supplied file in the second. Reusing the same script gives the same
+result for the same input and data. It saves the tokens a model would
+spend writing a new helper for each order.
+
+## Move the save instruction into a rule
+
+The save-only request supplied the complete note. In the first run,
+Codex wrote `support/order-1042-billing.md` without opening the triage
+skill. After the change, it wrote `drafts/order-1042-billing.md`.
+It looked at the skill in the second run. The save instruction had
+already moved out of that file and into `AGENTS.md`.
+
+Ask the agent which instruction tells it where to save the note.
+Compare the two files that could have contained the instruction.
