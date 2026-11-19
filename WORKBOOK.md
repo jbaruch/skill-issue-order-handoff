@@ -221,16 +221,30 @@ describes it."
 
 **Working copy.** Use `6-solved` for the complete manifest and change the
 install path above to `../6-solved/package`. This is a local install.
-Baruch will show the built-in GitHub Copilot reviewer using the published
-package. After the demo, ask your agent which finding in the review
-follows the rule about pending holds.
 
-## 7. Check whether it helped
+### Presenter demo · one artifact, shared rules
+
+Your agent uses the installed rules as it works. An automatic approval
+classifier can use those rules from the agent's context when it checks a
+proposed action. In GitHub, the review job installs the published release
+so Copilot can use the same rules to review a code change.
+
+Baruch will show the built-in GitHub Copilot reviewer using the published
+package. After the demo, give your agent the
+[review](evidence/README.md#copilot) and the
+[rule](rules/order-notes.md). Ask which finding applies the rule about
+pending holds and how the code change would affect a support note.
+
+## 7. Evals are tests for context artifacts
+
+An eval checks what the agent does with the instructions and tools you
+give it. Write down what should happen before you run the cases. Keep
+the requests and the checks so you can rerun them when the package changes.
 
 **Start here.** Use [fresh requests](fixtures/eval-cases.json) and the
-[scorecard](answers/scorecard.md). Choose how you'll recognize a correct
-order fact, a useful team decision or question, and a docs-only edit
-before you see the results.
+[scorecard](answers/scorecard.md). For a billing request, check the
+payment facts and the team named in the note. For a README edit, check
+that the agent stays on task and changes only the README.
 
 **Terminal**
 
