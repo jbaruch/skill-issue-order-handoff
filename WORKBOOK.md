@@ -87,7 +87,9 @@ order. Have it show the code it wrote and the command it ran.
 > step in the triage-order skill to run that script on future tickets.
 > Show me what changed and how you checked it.
 
-Review the updated skill and the script before opening the next session.
+If Codex asks to edit `SKILL.md`, review the proposed lookup change and
+choose **Yes, proceed**. Check the updated skill and script before
+opening the next session.
 
 **After.** In a fresh session paste the same lookup request. Both runs
 should find 2500 cents captured and 2500 cents pending. If the agent
