@@ -27,9 +27,7 @@ or result behind its answer. If it can only infer a cause, ask it to say so.
 Its triage skill says it handles both order questions and questions
 about what comes in a kit.
 
-**Before.** First, paste the full [kit question prompt](prompts/product.md)
-into your agent. The customer asks whether Brickbox kits come with assembly
-instructions.
+**Before.** Ask your agent the [kit question](prompts/product.md).
 
 Open a fresh session in the same practice folder. Paste the full
 [double-charge ticket prompt](prompts/order.md) about order 1042. For

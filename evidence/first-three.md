@@ -4,10 +4,11 @@ These observations came from separate Codex sessions in new folders.
 
 ## Skill description and instructions
 
-With the broad description, Codex opened `triage-order/SKILL.md` before
-replying to the kit question. The skill required an order number, so
-Codex asked for one. With the narrower description, it read
-`data/product-info.md` and said the kit includes assembly instructions.
+We asked Codex [the same kit question](../prompts/product.md) in two
+fresh sessions. With the broad description, Codex opened
+`triage-order/SKILL.md` and asked for the order number. With the narrower
+description, it read the product guide and said the kits include
+assembly instructions. It did not open the order skill in that run.
 For the double-charge ticket, it opened the skill and checked order 1042
 in both runs. The final instructions gave the Billing note four headings:
 Customer question, Order facts, Team, and Next action.

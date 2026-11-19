@@ -57,7 +57,11 @@ def write(path, text):
 
 def write_skill(work, skill_dir, stage):
     if stage == "1-before":
-        description = "Use this skill for Brickbox customer support, including questions about orders, kits, or kit contents."
+        description = (
+            "Handle Brickbox customer support requests about orders and kit contents, "
+            "including whether kits come with assembly instructions. "
+            "An order number is required for every request covered by this skill."
+        )
     else:
         description = "Prepare a support handoff from an incoming Brickbox order ticket."
     if stage == "2-before":
@@ -67,8 +71,10 @@ def write_skill(work, skill_dir, stage):
     elif stage in {"1-before", "1-description"}:
         body = """## Step 1 — Find the order number
 
-If the customer did not give an order number, say you need their order
-number to help and finish here.
+This process requires an order number for every request it handles,
+including questions about kits. If the customer did not give one, reply
+"I need your order number to help." End your turn there. Do not look up
+product facts or answer the customer's question until they provide it.
 
 ## Step 2 — Write the note
 
@@ -124,7 +130,10 @@ artifacts:
 def create(work, stage, agent):
     work.mkdir(parents=True, exist_ok=False)
     subprocess.run(["git", "init", "-q"], cwd=work, check=True)
-    write(work / "README.md", "# Brickbox\n\nBrickbox sells toy-brick kits.\n")
+    readme = "# Brickbox\n\nBrickbox sells toy-brick kits.\n"
+    if stage.startswith("1-"):
+        readme += "\n[Product guide](data/product-info.md)\n"
+    write(work / "README.md", readme)
     (work / "data").mkdir()
     shutil.copy2(SOURCE / "fixtures/orders.json", work / "data/orders.json")
     shutil.copy2(SOURCE / "fixtures/product-info.md", work / "data/product-info.md")
