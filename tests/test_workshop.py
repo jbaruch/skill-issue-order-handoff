@@ -1,5 +1,6 @@
 import importlib.util
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -44,6 +45,25 @@ class WorkshopTests(unittest.TestCase):
             self.assertEqual(duplicate.returncode, 1)
             self.assertEqual(note.read_text(), "keep this")
             self.assertTrue((folder / ".agents/skills/triage-order/SKILL.md").exists())
+
+    def test_rules_lab_has_a_starting_support_folder(self):
+        with tempfile.TemporaryDirectory() as parent:
+            folder = Path(parent) / "rule-lab"
+            command = [sys.executable, str(ROOT / "tools/start.py"), "3-before", "--at", str(folder)]
+            subprocess.run(command, check=True, capture_output=True)
+            self.assertTrue((folder / "support/order-1058-shipping.md").is_file())
+            self.assertFalse((folder / "AGENTS.md").exists())
+
+    def test_jev_recorder_surfaces_missing_key(self):
+        env = os.environ.copy()
+        env.pop("TYPESAFE_API_KEY", None)
+        result = subprocess.run(
+            [sys.executable, str(ROOT / "tools/measure.py"), "jev"],
+            env=env, capture_output=True, text=True,
+        )
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("evidence/jev.jsonl", result.stderr)
+        self.assertEqual(result.stdout, "")
 
 
 if __name__ == "__main__":

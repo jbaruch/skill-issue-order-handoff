@@ -26,19 +26,24 @@ python3 --version
 acr version
 ```
 
-Keep this terminal at the top of the folder you cloned. Choose your agent
-once and use the same value when you open later exercises.
+Keep one terminal at the top of the folder you cloned. Use it for
+workshop commands. Choose your agent once in that terminal:
 
 ```sh
 agent=codex                 # or claude-code or cursor
 python3 tools/start.py 1-before --agent "$agent"
 ```
 
-Open the printed folder in a new agent session. The helper makes a
-practice project with sample orders, product facts, and the files for
-that exercise. If you already have that folder, reuse it or add
-`--at .workshop/1-fresh` to make another copy. Each exercise has a
-working copy you can open if you skip an edit or need to catch up.
+The helper prints the practice folder it created. Open your agent in
+that exact folder. For Codex, from a second terminal at the workshop
+repo, run `codex -C .workshop/1-before`. In an editor, open the printed
+folder and start a new session there.
+
+Each practice folder holds a copy of the sample data and files for that
+exercise. Pulling updates into the workshop repo leaves existing
+practice copies as they were. To start over, make a fresh one with
+`--at .workshop/1-fresh` and open the new path. Each exercise also has
+a working copy you can open if you skip an edit or need to catch up.
 [Working copies](answers/README.md)
 
 Lab 1 puts the skill in `.agents/skills` for Codex, `.claude/skills`

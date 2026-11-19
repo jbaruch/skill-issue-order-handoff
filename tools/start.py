@@ -135,6 +135,11 @@ def create(work, stage, agent):
         path = work / "scripts"
         path.mkdir()
         shutil.copy2(SOURCE / "skills/triage-order/scripts/lookup_order.py", path)
+    if stage in {"3-before", "3-solved"}:
+        write(work / "support/order-1058-shipping.md", """Order 1058 · Shipping
+
+The shipping label was created. Check tracking before giving an arrival date.
+""")
     if stage == "3-solved":
         rule = (SOURCE / "rules/order-notes.md").read_text()
         if agent == "cursor":

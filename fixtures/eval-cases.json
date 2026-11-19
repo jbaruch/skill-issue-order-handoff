@@ -1,6 +1,6 @@
 [
-  {"id": "billing", "prompt": "Prepare a support handoff in chat for this ticket: I see two $19 entries for order 1061. Did I pay twice?"},
-  {"id": "shipping", "prompt": "Prepare a support handoff in chat for this ticket: I need to know when the package for order 1058 will show up."},
-  {"id": "unclear", "prompt": "Prepare a support handoff in chat for this ticket: I need help with order 1042 but I don’t know which team to ask."},
-  {"id": "product", "prompt": "Use skills from this practice project whose listed descriptions fit the request. Check data/product-info.md and answer this customer in chat: Does my Brickbox kit come with a parts list?"}
+  {"id": "billing", "prompt": "Use only files and skills inside the practice folder open in this session. Prepare a support handoff in chat for this ticket: I see two $19 entries for order 1061. Did I pay twice?"},
+  {"id": "shipping", "prompt": "Use only files and skills inside the practice folder open in this session. Prepare a support handoff in chat for this ticket: I need to know when the package for order 1058 will show up."},
+  {"id": "unclear", "prompt": "Use only files and skills inside the practice folder open in this session. Prepare a support handoff in chat for this ticket: I need help with order 1042 but I don’t know which team to ask."},
+  {"id": "product", "prompt": "Use only files and skills inside the practice folder open in this session. Check data/product-info.md and answer this customer in chat: Does my Brickbox kit come with a parts list?"}
 ]

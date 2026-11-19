@@ -2,6 +2,7 @@
 """Record Codex routing or a Jev run followed by Codex for unclear tickets."""
 import argparse
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -64,9 +65,19 @@ def main():
     parser.add_argument("mode", choices=("reasoning", "jev"))
     parser.add_argument("--script", type=Path, default=ROOT / "skills/triage-order/scripts/route.py")
     args = parser.parse_args()
+    if args.mode == "jev" and not os.environ.get("TYPESAFE_API_KEY"):
+        parser.exit(1, "TYPESAFE_API_KEY is missing. Use evidence/reasoning.jsonl and evidence/jev.jsonl for Reflection.\n")
     rows = json.loads((ROOT / "fixtures/routes.json").read_text())
     for row in rows:
-        print(json.dumps(run(row, args.mode, args.script)), flush=True)
+        try:
+            recorded = run(row, args.mode, args.script)
+        except (OSError, subprocess.TimeoutExpired, RuntimeError, ValueError) as exc:
+            parser.exit(1, f"Could not record {row['id']} ({type(exc).__name__}). "
+                        "Use evidence/reasoning.jsonl and evidence/jev.jsonl for Reflection.\n")
+        print(json.dumps(recorded), flush=True)
+        if recorded.get("status") == "unavailable":
+            error = recorded["calls"][0]["error"]
+            parser.exit(1, f"{error}. Use evidence/reasoning.jsonl and evidence/jev.jsonl for Reflection.\n")
 
 
 if __name__ == "__main__":

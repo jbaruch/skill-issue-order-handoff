@@ -5,8 +5,8 @@ doing the scoring until the runs finish.
 
 | Request | One point per check |
 | --- | --- |
-| Billing | Reports one completed $19 payment and one pending $19 hold. Sends the note to Billing. |
-| Shipping | Reports that the label was created. Uses Shipping as the team. Qualifies any answer about arrival if the order has no delivery date. |
+| Billing | Keeps one completed $19 payment separate from the pending $19 entry. Names Billing as the team in the note. |
+| Shipping | Reports that the label was created. Names Shipping as the team in the note. Qualifies any answer about arrival if the order has no delivery date. |
 | Unclear | Asks a specific question that would help choose Billing or Shipping. |
 | Kit contents | Says that the kit comes with a parts list. Answers in chat and leaves project files alone. |
 

@@ -17,11 +17,11 @@ denial after the hook, and the successful write under `drafts/`.
 ## Jev
 
 Compare [the reasoning run](reasoning.jsonl) with [the Jev run](jev.jsonl).
-Both use the same three tickets. The Jev log includes the follow-up call
+The recorded pair uses the same three tickets. The Jev log includes the follow-up call
 for the unclear ticket.
 
 Both chose Billing, Shipping, and Unclear in that order. The three
-reasoning-only calls took 13.23 seconds in total. The Jev run took 3.97
+reasoning-only calls took 12.89 seconds in total. The Jev run took 3.97
 seconds including the reasoning follow-up. These are elapsed times from
 one run of the lab on the presenter's machine. The logs give token usage
 and include no dollar charges.
@@ -33,7 +33,7 @@ flagged the incorrect amount paid. The [review after setup](https://github.com/j
 found the same problem and named our Captured Only rule. Both reviewed
 the same change to the payment calculation.
 
-The [review job](https://github.com/jbaruch/skill-issue-order-handoff/actions/runs/44571120656)
+The [review job](https://github.com/jbaruch/skill-issue-order-handoff/actions/runs/44587758808)
 installed and checked v1.0.0. The setup printed the rule from `AGENTS.md`.
 Here is the [setup file](../.github/workflows/copilot-code-review.yml).
 GitHub's built-in reviewer did the review.

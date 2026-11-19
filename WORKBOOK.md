@@ -101,9 +101,18 @@ calls it. Run `python3 scripts/lookup_order.py 1042` there.
 python3 tools/start.py 3-before --agent "$agent"
 ```
 
-**Before.** The instruction to save under `drafts/` lives in the triage
-skill. Ask the opening questions below, then paste the
-[save request](prompts/save.md). It already contains the whole note.
+**Before.** Open the printed folder in a fresh agent session. It has an
+example note in `support/`. Start by asking the agent:
+
+> Use only files inside this practice folder. Which rules came from this
+> folder when the session started? Point to the rule file for each one.
+> How do those rules differ from skills?
+
+Check the file the agent names. In Codex, the project rule file is
+`AGENTS.md` inside this practice folder. You'll create it in the next step.
+
+Then paste the [save request](prompts/save.md) in the same session.
+The note is already written. Look at where the agent saved it.
 
 **What you build.** Move the save instruction into a project rule that
 applies across tasks. In the same rule, write "Captured Only. Count completed payments as paid and
@@ -111,8 +120,9 @@ list pending holds separately." Use `AGENTS.md` for Codex,
 `CLAUDE.md` for Claude Code, or an always-applied rule under
 `.cursor/rules/` for Cursor. Remove the save instruction from the skill.
 
-**After.** Start a fresh chat and paste the same save request. Look in
-the folder the agent chose.
+**After.** Start a fresh session in the same folder. Ask the same
+opening questions, then paste the same save request. Compare the
+two files and the locations the agent chose.
 
 **Reflection.** Ask before and after the change. "Which rules are loaded
 when this session starts? What's the difference between an always-on
@@ -138,20 +148,36 @@ If prompted in another client, approve the local Brickbox tool. Paste
 the [root save request](prompts/root-write.md). The agent calls the tool.
 Look for `1042.md` in the project folder.
 
-**What you build.** Open `local-hook/protect_draft_location.py`. Check
-the save tool's `path` input and return exit status 2 when it names a
-location outside `drafts/`. Other tools can continue. To install your
-hook, run this in the folder you cloned:
+**What you build.** Open `local-hook/protect_draft_location.py`. The
+first line tells ACR to run the hook with Python. Keep it when you edit.
+The event includes `tool_name` and `tool_input.path`. For the Brickbox save
+tool, allow a Markdown file directly under `drafts/`. Return exit
+status 2 with a short message for other destinations. Return 0 for an
+allowed save or a different tool. The [finished hook](hooks/protect_draft_location.py)
+shows the input fields and the two tool names. Install your hook from
+the workshop repo:
 
 ```sh
 python3 tools/start.py enable-hook --agent "$agent" --at .workshop/4-before
 ```
 
-**After.** Open a new agent session. In Codex, review and trust the new
-workshop hook under `/hooks`. In the lab terminal rename the first file with
-`mv 1042.md first-run.saved`, then repeat the root save request. Open the tool result and check
-the folder. Finally paste the [allowed save request](prompts/draft-write.md)
-and open `drafts/1042.md`.
+**After.** Open a new agent session in the same practice folder. If
+Codex shows **Hooks need review**, choose **Review hooks**. You can also
+enter `/hooks`. Open **PreToolUse**, select the new hook from the practice
+folder, and press `t` to trust it.
+
+From the workshop repo, rename the file from the first run so you can
+tell whether the second run created a file:
+
+```sh
+mv .workshop/4-before/1042.md .workshop/4-before/first-run.saved
+```
+
+Repeat the root save request. Read the tool result and check whether
+`1042.md` appeared again. Finally paste the
+[allowed save request](prompts/draft-write.md) and open `drafts/1042.md`.
+The root save should report your block message. If it reports a hook
+error, check the Python line, reinstall the hook, and rerun both saves.
 
 **Reflection.** Ask "Did you try to write the file? Why did the first
 attempt work and the second stop? What did the hook return?" Ask the
@@ -175,8 +201,9 @@ The task is to choose Billing, Shipping, or Unclear. If the message is
 unclear, the next step is one question for the customer.
 
 **Before.** Let the reasoning model choose. The recorder below uses
-Codex. If you use a different agent, ask it to classify the same three
-messages, then open the recorded pair for the comparison.
+Codex for the reasoning run and for Jev's follow-up on the unclear
+ticket. If you use a different agent, ask it to classify the three
+messages and use the recorded pair for the time and token comparison.
 
 **What you build.** Make `5-before` with `python3 tools/start.py 5-before --agent "$agent"`.
 In that folder, fill in the three choices in `scripts/route.py`. The finished code is in `5-solved`
@@ -184,7 +211,10 @@ under `scripts/route.py`. Expand the option descriptions so the model
 can tell a charge question from a delivery question. Route Unclear to
 your reasoning model, which asks one question.
 
-**After.** Run the same tickets with Jev and compare the two logs.
+**After.** Run the same tickets with Jev and compare the two logs. For
+the live run, load your TypeSafe key in the terminal that runs the recorder.
+If either run is unavailable, use both [saved logs](evidence/README.md#jev)
+for Reflection so the tickets and calls are comparable.
 
 **Terminal · from the folder you cloned**
 
@@ -213,7 +243,8 @@ python3 tools/start.py clean --agent "$agent" --at .workshop/package-consumer
 ```
 
 **Before.** In `package-consumer`, give your agent the same order
-ticket. Ask where it found instructions and helper code.
+ticket. Use the full prompt, including its instruction to work inside
+that folder. Ask which files it used and whether it had a lookup script.
 
 **What you build.** Open `.workshop/6-before/package/agent-plugin.yaml`.
 The manifest is the package's list of files. Declare the triage skill,
@@ -221,17 +252,22 @@ the rule, and the hook. The lookup and Jev scripts live inside the skill
 folder and travel with it. Use the [working manifest](agent-plugin.yaml)
 if you need an example.
 
-**Terminal · in `.workshop/package-consumer`**
+**Terminal · from the workshop repo**
 
 ```sh
-acr validate ../6-before/package
-acr install ../6-before/package --agent "$agent" --freshness none --non-interactive
-acr realize
-acr check
+(
+  cd .workshop/package-consumer &&
+  acr validate ../6-before/package &&
+  acr install ../6-before/package --agent "$agent" --freshness none --non-interactive &&
+  acr realize &&
+  acr check
+)
 ```
 
 **After.** Open a fresh agent session in that same copy. Give it the order ticket
 again and have it show where it found the lookup script.
+If the agent reports that live routing is unavailable, check the local lookup
+and payment facts. The live Jev call runs in your terminal in Lab 5.
 
 **Reflection.** Ask "How are the artifacts organized in the package?
 Where did the rule, skill, scripts, and hook land here? Why did each go
@@ -275,17 +311,21 @@ python3 tools/start.py clean --agent "$agent" --at .workshop/eval-after
 ```
 
 **Before.** Give one request at a time to the agent in `eval-before`.
-Use a fresh session for each. Save the response and check the file edits.
+Use a fresh session for each. Keep the responses in a scratch note
+outside the practice folder and record any edits made by the agent.
 
 **What you build.** Install Baruch's published release in `eval-after`,
 starting with the command below.
 
-**Terminal · in `.workshop/eval-after`**
+**Terminal · from the workshop repo**
 
 ```sh
-acr install github:jbaruch/skill-issue-order-handoff@v1.0.0 --agent "$agent" --freshness none --non-interactive
-acr realize
-acr check
+(
+  cd .workshop/eval-after &&
+  acr install github:jbaruch/skill-issue-order-handoff@v1.0.0 --agent "$agent" --freshness none --non-interactive &&
+  acr realize &&
+  acr check
+)
 ```
 
 **After.** Run the same cases in the installed copy. Give the two

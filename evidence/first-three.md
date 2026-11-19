@@ -30,16 +30,17 @@ the supplied file in the second. Reusing the same script gives the same
 result for the same input and data. It saves the tokens a model would
 spend writing a new helper for each order.
 
-The agent reported 556 output tokens in the first run and 264 in the
+The agent reported 932 output tokens in the first run and 474 in the
 second. The two sessions also had different input and cache usage.
 
 ## Move the save instruction into a rule
 
-The save-only request supplied the complete note. In the first run,
-Codex wrote `support/order-1042-billing.md` without opening the triage
-skill. After the change, it wrote `drafts/order-1042-billing.md`.
-It looked at the skill in the second run. The save instruction had
-already moved out of that file and into `AGENTS.md`.
+Codex saved the already-written note next to the example in `support/`.
+After adding `AGENTS.md` and removing the save instruction from the skill,
+Codex saved the same note under `drafts/`. The contents matched. In the
+second Reflection, it pointed to the rule in `AGENTS.md` and explained
+that it could save a finished note without opening the triage skill.
 
-Ask the agent which instruction tells it where to save the note.
-Compare the two files that could have contained the instruction.
+Ask your agent which rules it loaded at the start of each session.
+Have it point to the project file and explain why the two saves went
+to different folders.
