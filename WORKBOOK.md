@@ -163,6 +163,12 @@ session and paste the same save request.
 
 ## 4. Block a write
 
+MCP stands for Model Context Protocol. It lets an agent call tools
+provided by another program. In this lab, a small local program named
+Brickbox provides the `save_handoff` tool. The agent sends a path and
+the note text. The tool writes a new Markdown file in the practice
+folder and reports where it saved it.
+
 **Terminal**
 
 ```sh
@@ -171,10 +177,10 @@ python3 tools/start.py 4-before --agent "$agent"
 
 **Before.** Open the printed folder in your agent. It has the local
 Brickbox save tool and uses the project from before we added the rule.
-In Codex, trust this workshop project and check that `/mcp` lists Brickbox.
-If prompted in another client, approve the local Brickbox tool. Paste
-the [root save request](prompts/root-write.md). The agent calls the tool.
-Look for `1042.md` in the project folder.
+In Codex, trust the practice project if prompted. The `/mcp` command
+lists the connected programs. Check that Brickbox appears, then paste
+the [root save request](prompts/root-write.md). Approve the tool call if
+asked. Look for `1042.md` in the practice folder and check the save result.
 If Brickbox is missing from the tool list, go straight to the
 [recorded calls](evidence/README.md#hooks) and do the Reflection.
 
