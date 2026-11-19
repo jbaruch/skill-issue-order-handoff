@@ -96,11 +96,11 @@ should find 2500 cents captured and 2500 cents pending. If the agent
 writes another helper, ask which instruction led it to do that, then
 use `2-solved` for the second run.
 
-**Reflection.** Ask "How did you find the order each time? Show me the
-helper you wrote in the first run and the script you called in the
-second. Why reuse that script next time?" Listen for two benefits.
-The same script gives the same answer for the same input and data.
-The agent also saves the tokens it would spend writing a new helper.
+**Reflection.** Ask in the new session. "What command did you run?
+Did you have to write lookup code this time? What do we gain by using
+the same script on future tickets?" The same script gives the same
+answer for the same input and data. The agent saves the tokens it
+would spend writing a new helper.
 
 **Working copy.** To get the reusable script and skill, run
 `python3 tools/start.py 2-solved --agent "$agent"` from the workshop
