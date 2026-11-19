@@ -1,7 +1,16 @@
 # Brickbox workshop workbook
 
-You are the developer building the skill. Your agent tries it on the
-sample orders. Here's the note we want to make for the first ticket:
+You're a developer at Brickbox, a fictional online store. The support
+team wants to automate common customer questions. Your job is to build
+a skill that helps an agent look up an order and explain whether the
+customer was charged twice.
+
+Here's the first ticket:
+
+> I think I was charged twice for order 1042.
+
+In this workshop, your agent puts its answer in an internal note for
+Billing to review. Here's what we want it to write:
 
 > **Order 1042 · Billing**
 >
@@ -9,8 +18,8 @@ sample orders. Here's the note we want to make for the first ticket:
 > payment and one pending $25 hold. Ask if the second entry appears as
 > completed on their bank statement.
 
-A handoff is a short note for the next support teammate. Keep the sample
-note open. Each exercise changes how the agent gets part of it right.
+That's the handoff. Keep the sample note open. Each exercise changes
+how the agent gets part of it right.
 
 Start with the [README setup](README.md#before-the-workshop). Run commands
 marked **Terminal** from the folder you cloned unless a step names a

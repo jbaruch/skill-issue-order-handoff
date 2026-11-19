@@ -2,8 +2,10 @@
 
 QCon San Francisco · How To Write Skills That Actually Work
 
-Build a skill that turns a customer's order question into a note for
-the next support teammate. Open the [workbook](WORKBOOK.md) to start.
+Brickbox, a fictional online store, wants to automate common support
+questions. You'll build a skill that helps an agent look up a customer's
+order and explain whether they were charged twice. Open the
+[workbook](WORKBOOK.md) to start.
 
 ## Before the workshop
 
