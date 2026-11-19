@@ -40,12 +40,14 @@ def trial(parent, mode, case):
     after = files_in(work)
     changed = sorted(name for name in before.keys() | after.keys()
                      if before.get(name) != after.get(name))
+    drafts = sorted(file for file in (work / "drafts").glob("*.md") if file.is_file())
     return {
         "case": case["id"], "package": PACKAGE if mode == "published" else None,
         "prompt": case["prompt"], "observed_commands": reads,
         "response": messages[-1].replace(str(work) + "/", "") if messages else "",
         "changed_files": changed,
-        "draft_files": sorted(p.name for p in (work / "drafts").glob("*.md")),
+        "draft_files": [file.name for file in drafts],
+        "draft_contents": {file.name: file.read_text(encoding="utf-8") for file in drafts},
     }
 
 

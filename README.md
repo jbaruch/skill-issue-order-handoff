@@ -48,7 +48,7 @@ a working copy you can open if you skip an edit or need to catch up.
 
 Lab 1 puts the skill in `.agents/skills` for Codex, `.claude/skills`
 for Claude Code, or `.cursor/skills` for Cursor. Open
-`triage-order/SKILL.md` in that folder to edit it.
+`triage-order/SKILL.md` in that folder to edit its description.
 
 The order data is made up. All support notes and drafts stay in the lab
 folder. The Copilot review is a presenter demo.

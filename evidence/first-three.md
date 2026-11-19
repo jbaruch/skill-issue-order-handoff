@@ -2,7 +2,7 @@
 
 These observations came from separate Codex sessions in new folders.
 
-## Skill description and instructions
+## Frontmatter matters
 
 We asked Codex [the same kit question](../prompts/product.md) in two
 fresh sessions. With the broad description, Codex opened
@@ -10,16 +10,14 @@ fresh sessions. With the broad description, Codex opened
 description, it read the product guide and said the kits include
 assembly instructions. It did not open the order skill in that run.
 For the [double-charge ticket](../prompts/order.md), Codex opened the
-skill and checked order 1042 in all three versions. The first reply was
-addressed to the customer. The final instructions produced a Billing
-note with four headings: Customer question, Order facts, Team, and
-Next action.
+skill and checked order 1042 with both descriptions. It found one $25
+payment and a second $25 entry still pending.
 
-Give your agent the [five recorded runs](skill-selection.jsonl) and the
+Give your agent the [four recorded runs](skill-selection.jsonl) and the
 two descriptions. Ask why the kit question matched the first description,
 which instruction made the agent ask for an order number, and where it
-found the answer after the edit. Then ask which instruction gave the
-Billing note its four headings.
+found the answer after the edit. Ask why the double-charge ticket still
+matched the new description.
 
 ## Reuse the lookup
 
@@ -39,7 +37,7 @@ second. The two sessions also had different input and cache usage.
 ## Move the save instruction into a rule
 
 Codex saved the [already-written note](../prompts/save.md) next to the
-example in `support/`.
+example in `support/`. The request left the destination to the agent.
 After adding `AGENTS.md` and removing the save instruction from the skill,
 Codex saved the same note under `drafts/`. The contents matched. In the
 second Reflection, it pointed to the rule in `AGENTS.md` and explained

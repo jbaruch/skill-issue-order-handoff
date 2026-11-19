@@ -21,50 +21,46 @@ Pause for **Reflection** before and after each change. Ask your agent what
 it did and why. In the same session, have it show the instruction, command,
 or result behind its answer. If it can only infer a cause, ask it to say so.
 
-## 1. Write the support skill
+## 1. Frontmatter matters
 
-**Start here.** Open the `1-before` folder you made during setup.
-Its triage skill says it handles both order questions and questions
-about what comes in a kit.
+**Start here.** Open the `1-before` folder you made during setup. The
+order skill's description says it covers both orders and kit contents.
+Your agent uses that description to decide when to open the skill.
 
-**Before.** Ask your agent the [kit question](prompts/product.md). In the
-[recorded run](evidence/first-three.md#skill-description-and-instructions),
-it opened the order skill and asked for an order number. If yours takes
-a different path, ask what it opened and why. Use the recorded reply
-for the comparison and move on.
+**Before.** In a fresh session, paste the [kit question](prompts/product.md)
+by itself. In the
+[recorded run](evidence/first-three.md#frontmatter-matters),
+Codex opened the order skill and asked for an order number.
 
-Open a fresh session in the same practice folder. Paste the
-[double-charge ticket](prompts/order.md) about order 1042. For both
-requests, record the agent's reply and the files it opened.
+**Reflection.** In that session, ask what the agent opened and why. If
+it opened the order skill, ask which words in the description matched
+the question and why it asked for an order number.
 
-**What you build.** Change only the skill description to say it prepares
-a handoff from an incoming Brickbox order ticket.
+Start another fresh session in the same folder. Paste the
+[double-charge ticket](prompts/order.md) by itself. Ask which skill the
+agent opened, if any, and why. Record both replies and what the agent
+actually opened. A session that has already read the skill can reuse
+its instructions, so use a fresh session for each request.
+
+**What you build.** In `triage-order/SKILL.md`, replace just the
+`description` line at the top:
+
+```yaml
+description: Prepare a support handoff from an incoming Brickbox order ticket.
+```
 
 **After.** Run both requests again in fresh sessions. Compare what the
-agent opened and what it said before and after you changed the
-description. Then keep the description and give the
-handoff four headings in the instructions: customer question, order facts,
-team, and next action. Repeat the order request and read both notes.
-Check that the finished note gives Billing these facts and the next step.
+agent opened and what it said. The kit question should lead to the
+product guide. The double-charge ticket still belongs with the order skill.
 
-> **Order 1042 · Billing**
->
-> The customer thinks they paid twice. The order shows one completed $25
-> payment and one pending $25 hold. Ask if the second entry appears as
-> completed on their bank statement.
+**Reflection.** In each session, ask why the agent took that path and
+what it read. Why did the kit question go to a different source? What
+in the new description still matched the double-charge ticket?
 
-**Reflection.** Ask your agent what it opened for each question and why.
-If it opened the order skill for the kit question, ask which words in
-the description made the skill look relevant and which instructions it
-followed. After the change, ask where it found the kit facts and why it
-used that source.
-For the double-charge ticket, ask which instruction gave the Billing
-note its four headings.
-
-**Working copy.** Use `1-description` to see the description edit on its
-own, or `1-solved` for the complete skill. Compare the
-[recorded runs](evidence/first-three.md#skill-description-and-instructions)
-if you skip a run or get a different result.
+**Working copy.** Use `1-solved` for the skill with the narrower
+description. If either run takes a different path, ask why, compare with
+the [recorded runs](evidence/first-three.md#frontmatter-matters),
+and move on.
 
 ## 2. Look up an order
 
@@ -115,8 +111,8 @@ python3 tools/start.py 3-before --agent "$agent"
 **Before.** Open the printed folder in a fresh agent session. It has an
 example note in `support/`. Start by asking the agent:
 
-> Use only files inside this practice folder. Which rules came from this
-> folder when the session started? Point to the rule file for each one.
+> Which rules came from this folder when the session started? Point to
+> the rule file for each one.
 > How do those rules differ from skills?
 
 Check any paths your agent names. Rules it reports may come from its
@@ -329,11 +325,14 @@ An eval checks what the agent does with the instructions and tools you
 give it. Write down what should happen before you run the cases. Keep
 the requests and the checks so you can rerun them when the package changes.
 
+In Lab 1, the agent could open the right skill and find the right payment
+facts while writing straight to the customer. Here, we also check whether
+the reply gives Billing a handoff it can act on.
+
 **Start here.** Use [fresh requests](fixtures/eval-cases.json) and the
 [scorecard](answers/scorecard.md). For a billing request, check the
-payment facts and the team named in the note. For a product question,
-check that the agent answers from the kit information and leaves the
-project files alone.
+payment facts and the team named in the reply or draft. For a product
+question, check the answer and whether the agent left the files alone.
 
 **Terminal**
 
@@ -343,8 +342,8 @@ python3 tools/start.py clean --agent "$agent" --at .workshop/eval-after
 ```
 
 **Before.** Copy the `prompt` text from one case at a time into a fresh
-agent session in `eval-before`. Keep the responses in a scratch note
-outside the practice folder and record any edits made by the agent.
+agent session in `eval-before`. Paste each request by itself. Save the
+replies and any drafts outside the practice folder for scoring.
 
 **What you build.** Install Baruch's published release in `eval-after`,
 starting with the command below.

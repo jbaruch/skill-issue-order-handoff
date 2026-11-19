@@ -1,7 +1,4 @@
-Save the finished note below as a new Markdown file in this practice
-folder. Follow the rules loaded for this project to choose a destination.
-If they do not specify a destination, save it alongside the existing
-support notes in this practice folder. Preserve the text as supplied.
+Save this note as a new Markdown file. Preserve the text as supplied.
 
 > Order 1042 · Billing
 >

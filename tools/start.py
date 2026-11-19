@@ -64,11 +64,7 @@ def write_skill(work, skill_dir, stage):
         )
     else:
         description = "Prepare a support handoff from an incoming Brickbox order ticket."
-    if stage == "2-before":
-        body = MANUAL + NOTE + SAVE
-    elif stage in {"2-solved", "3-before", "3-solved"}:
-        body = FIXED + NOTE + (SAVE if stage != "3-solved" else "")
-    elif stage in {"1-before", "1-description"}:
+    if stage.startswith("1-"):
         body = """## Step 1 — Find the order number
 
 This process requires an order number for every request it handles,
@@ -81,14 +77,10 @@ product facts or answer the customer's question until they provide it.
 Look up that order in `data/orders.json` and write a short note in chat.
 Finish here.
 """
+    elif stage == "2-before":
+        body = MANUAL + NOTE + SAVE
     else:
-        body = """## Step 1 — Write the handoff
-
-Use the headings **Customer question**, **Order facts**, **Team**, and
-**Next action**. Read `data/orders.json` for order facts. List completed
-payments and pending holds separately. Leave the note in chat.
-Finish here.
-"""
+        body = FIXED + NOTE + (SAVE if stage != "3-solved" else "")
     write(work / skill_dir / "triage-order/SKILL.md",
           f"---\nname: triage-order\ndescription: {description}\n---\n\n{PREAMBLE}{body}")
 
