@@ -11,7 +11,7 @@ def summarize(order_number, order):
         "order": order_number,
         "currency": order["currency"],
         "shipping": order["shipping"],
-        "captured_cents": sum(p["cents"] for p in payments if p["status"] == "captured"),
+        "captured_cents": sum(p["cents"] for p in payments if p["status"] in {"captured", "pending"}),
         "pending_cents": sum(p["cents"] for p in payments if p["status"] == "pending"),
     }
 
