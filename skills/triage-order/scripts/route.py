@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ask Jev which team should get a Brickbox ticket."""
+"""Ask Cloudflare Clef which team should get a Brickbox ticket."""
 import argparse
 import json
 import os
@@ -12,22 +12,26 @@ LABELS = {
     "shipping": "The customer asks about where an order is or when it will arrive.",
     "unclear": "Neither team is clear, or the text gives equally relevant reasons for both.",
 }
-URL = "https://api.typesafe.ai/v1/systemone"
+MODEL = "@cf/cloudflare/clef"
 
 
-def request(ticket, key):
+def request(ticket, account, token):
     payload = {
-        "model": "jev-latest",
+        "model": "clef",
         "state": ticket,
         "questions": {
             "team": {"type": "choice", "instructions": "Choose a team from the customer's question.", "criteria": LABELS}
         },
     }
-    req = Request(URL, json.dumps(payload).encode(), {
-        "Authorization": f"Bearer {key}", "Content-Type": "application/json",
+    url = f"https://api.cloudflare.com/client/v4/accounts/{account}/ai/run/{MODEL}"
+    req = Request(url, json.dumps(payload).encode(), {
+        "Authorization": f"Bearer {token}", "Content-Type": "application/json",
     })
     with urlopen(req, timeout=20) as response:
-        return json.load(response)
+        payload = json.load(response)
+    if not payload["success"]:
+        raise ValueError("Cloudflare did not complete the request")
+    return payload["result"]
 
 
 def main():
@@ -36,27 +40,28 @@ def main():
     parser.add_argument("ticket")
     args = parser.parse_args()
     started = perf_counter()
-    key = os.environ.get("TYPESAFE_API_KEY")
+    account = os.environ.get("CLOUDFLARE_ACCOUNT_ID")
+    token = os.environ.get("CLOUDFLARE_API_TOKEN")
     error = None
     result = {}
     label = "unclear"
-    if not key:
-        error = "TYPESAFE_API_KEY is missing"
+    if not account or not token:
+        error = "Set CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN"
     else:
         try:
-            result = request(args.ticket, key)
+            result = request(args.ticket, account, token)
             label = result["answers"]["team"]["choice"]
             if label not in LABELS:
                 raise ValueError("unknown label")
         except HTTPError as exc:
-            error = f"TypeSafe returned HTTP {exc.code}"
+            error = f"Cloudflare returned HTTP {exc.code}"
         except (ValueError, TypeError, KeyError, URLError, OSError) as exc:
-            error = f"TypeSafe request failed ({type(exc).__name__})"
+            error = f"Cloudflare request failed ({type(exc).__name__})"
     if error:
         label = "unclear"
     print(json.dumps({
-        "source": "jev" if not error else "unavailable",
-        "model": result.get("model"),
+        "source": "clef" if not error else "unavailable",
+        "model": result.get("model") or MODEL,
         "ticket": args.ticket,
         "label": label,
         "next": "reasoning" if label == "unclear" else "handoff",

@@ -314,7 +314,7 @@ prompts. If your client doesn't show the local tool or the hook result,
 open [the recorded calls](evidence/README.md#hooks) in your agent and ask
 the same questions.
 
-## 5. Route a ticket with Jev
+## 5. Route a ticket with Clef
 
 When you write a workflow, choose how each step runs. Code looks up the
 order from an exact number. A decision model picks a team from a fixed
@@ -323,7 +323,7 @@ list. A reasoning model works out what to ask when the ticket is unclear.
 
 **Start here.** Each ticket goes to Billing, Shipping, or Unclear. An
 unclear ticket needs one question for the customer. The recorder uses
-Codex for the before run and for that follow-up after Jev.
+Codex for the before run and for that follow-up after Clef.
 
 **Terminal · Before · Reasoning model.** Run from the workshop repo.
 
@@ -347,7 +347,7 @@ For an unclear ticket, ask one question that would help route it.
 **Terminal · Build.** Create the practice folder from the workshop repo.
 
 ```sh
-python3 tools/start.py 5-before --agent "$agent"
+python3 tools/start.py 5-before --agent "$agent" --at .workshop/5-clef-before
 ```
 
 In that folder, fill in the three choices in `scripts/route.py`. The finished code is in `5-solved`
@@ -355,48 +355,57 @@ under `scripts/route.py`. Expand the option descriptions so the model
 can tell a charge question from a delivery question. Route Unclear to
 your reasoning model, which asks one question.
 
-**Terminal · Set your Jev key.** Create an API key in the
-[TypeSafe console](https://console.typesafe.ai/keys). Run this block
-in the same Bash or Zsh terminal you'll use for the next command.
-Paste your key when asked and press Enter. The terminal hides the
-characters as you paste.
+**Terminal · Set your Cloudflare credentials.** In the Cloudflare
+dashboard, open **Workers AI**, then **Use REST API**. Copy the
+account ID and create a Workers AI API token using the template.
+Run this block in the Bash or Zsh terminal you'll use for Clef.
+Paste each value at its prompt and press Enter. The token is hidden.
+[Cloudflare setup](https://developers.cloudflare.com/workers-ai/get-started/rest-api/)
 
 ```sh
 {
-  printf 'Paste your TypeSafe API key and press Enter. '
-  IFS= read -rs TYPESAFE_API_KEY
+  printf 'Cloudflare account ID. '
+  IFS= read -r CLOUDFLARE_ACCOUNT_ID
+  printf 'Workers AI token (hidden). '
+  IFS= read -rs CLOUDFLARE_API_TOKEN
   printf '\n'
-  export TYPESAFE_API_KEY
+  export CLOUDFLARE_ACCOUNT_ID CLOUDFLARE_API_TOKEN
 }
 ```
 
-**Terminal · After · Jev.** Run from the workshop repo in that same terminal.
+**Terminal · After · Clef.** Run from the workshop repo in that same terminal.
 
 ```sh
-python3 tools/measure.py jev --script .workshop/5-before/scripts/route.py > jev.jsonl
+python3 tools/measure.py clef --script .workshop/5-clef-before/scripts/route.py > clef.jsonl
 ```
 
 If you see a connection error on macOS, try the system certificate file
-and run the Jev command again from the same terminal.
+and run the Clef command again from the same terminal.
 
 ```sh
 export SSL_CERT_FILE=/etc/ssl/cert.pem
 ```
 
 **Agent · Reflection.** Give your agent both logs, `reasoning.jsonl` and
-`jev.jsonl`. If either run is unavailable, use the two saved logs together.
-[Reasoning log](evidence/reasoning.jsonl) · [Jev log](evidence/jev.jsonl)
+`clef.jsonl`. If either run is unavailable, use the two saved logs together.
+[Reasoning log](evidence/clef-reasoning.jsonl) · [Clef log](evidence/clef.jsonl)
 
 ```text
 Compare these two runs on the same tickets. Why did one case go straight
 to Billing and another need a follow-up? Which model calls explain the
-difference in time and tokens? Include the reasoning call after Jev.
+difference in time and tokens? Include the reasoning call after Clef.
 What can these logs tell us about cost?
 ```
 
-**Working copy.** `5-solved` has the completed Jev script. To use it, create that
-folder with `tools/start.py` and use its script path in the last command. Open the
-[recorded logs](evidence/README.md#jev) if you skip either live run.
+**Terminal · Working copy.** Use this from the workshop repo if you
+want the finished Clef script.
+
+```sh
+python3 tools/start.py 5-solved --agent "$agent" --at .workshop/5-clef-solved
+python3 tools/measure.py clef --script .workshop/5-clef-solved/scripts/route.py > clef.jsonl
+```
+
+Use the [recorded logs](evidence/README.md#clef) if you skip either live run.
 
 ## 6. Build and install the package
 
@@ -421,7 +430,7 @@ Which files did you use for the ticket? Did you have a lookup script?
 
 **What you build.** Open `.workshop/6-before/package/agent-plugin.yaml`.
 The manifest is the package's list of files. Declare the triage skill,
-the rule, and the hook. The lookup and Jev scripts live inside the skill
+the rule, and the hook. The lookup and Clef scripts live inside the skill
 folder and travel with it. Use the [working manifest](agent-plugin.yaml)
 if you need an example.
 
@@ -444,7 +453,7 @@ I think I was charged twice for order 1042.
 ```
 
 If the agent reports that live routing is unavailable, check the local lookup
-and payment facts. The live Jev call runs in your terminal in Lab 5.
+and payment facts. The live Clef call runs in your terminal in Lab 5.
 
 **Agent · Reflection.** Ask in the session with the installed package.
 

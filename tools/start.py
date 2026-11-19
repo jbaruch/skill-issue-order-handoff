@@ -166,7 +166,7 @@ raise SystemExit(0)
         route = (SOURCE / "skills/triage-order/scripts/route.py").read_text()
         if stage == "5-before":
             start = route.index("LABELS = {")
-            end = route.index("\nURL =", start)
+            end = route.index("\nMODEL =", start)
             route = route[:start] + 'LABELS = {"unclear": "Add the Billing and Shipping definitions here."}' + route[end:]
         write(local_scripts / "route.py", route)
     if stage in {"6-before", "6-solved"}:

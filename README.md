@@ -13,10 +13,10 @@ order and explain whether they were charged twice. Open the
 - A working session in Codex, Claude Code, or Cursor. Baruch will use Codex.
 - [ACR 0.6.0](https://github.com/jbaruch/agentic-context-registry/releases/tag/v0.6.0)
   for the hook and package labs.
-- A [TypeSafe API key](https://console.typesafe.ai/keys) for the live Jev lab.
-  Follow **Terminal · Set your Jev key** in [Lab 5](WORKBOOK.md#5-route-a-ticket-with-jev)
-  to load it in the workshop terminal. If you're using the recordings, open
-  [the two logs](evidence/README.md#jev) in your agent.
+- A Cloudflare account ID and [Workers AI API token](https://developers.cloudflare.com/workers-ai/get-started/rest-api/)
+  for the live Clef lab. [Lab 5](WORKBOOK.md#5-route-a-ticket-with-clef)
+  shows how to load them in the workshop terminal. You can also use
+  [the two recorded logs](evidence/README.md#clef).
 
 **Terminal**
 

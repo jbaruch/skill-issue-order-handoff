@@ -14,7 +14,17 @@ shows only the list of available skills.
 [The three saves](hooks.md) show the root write before the hook, the
 denial after the hook, and the successful write under `drafts/`.
 
+## Clef
+
+Compare [the reasoning run](clef-reasoning.jsonl) with [the Clef run](clef.jsonl).
+Both chose Billing, Shipping, and Unclear for the same tickets. The
+reasoning-only calls took 9.09 seconds. Clef took 5.58 seconds including
+the Codex follow-up for the unclear ticket. Use the per-call usage to
+compare tokens. A dollar comparison needs separate billing or pricing data.
+
 ## Jev
+
+This comparison comes from the earlier version of Lab 5.
 
 Compare [the reasoning run](reasoning.jsonl) with [the Jev run](jev.jsonl).
 The recorded pair uses the same three tickets. The Jev log includes the
@@ -63,7 +73,7 @@ Compare the [clean run](eval-baseline.jsonl) and the
 [run with v1.0.0](eval-published.jsonl). Each request ran in its own
 clean Codex session. Use the [scorecard](../answers/scorecard.md).
 The recorded packaged runs used the skill's reasoning fallback when
-the TypeSafe key was unavailable in the agent's shell. For live Jev
-results, use the separate lab 5 logs above.
+the TypeSafe key was unavailable in the agent's shell. The published
+v1.0.0 package used for those evals includes the earlier Jev router.
 
 [One scoring pass](eval-scores.md)

@@ -54,15 +54,17 @@ class WorkshopTests(unittest.TestCase):
             self.assertTrue((folder / "support/order-1058-shipping.md").is_file())
             self.assertFalse((folder / "AGENTS.md").exists())
 
-    def test_jev_recorder_surfaces_missing_key(self):
+    def test_clef_recorder_surfaces_missing_credentials(self):
         env = os.environ.copy()
-        env.pop("TYPESAFE_API_KEY", None)
+        env.pop("CLOUDFLARE_ACCOUNT_ID", None)
+        env.pop("CLOUDFLARE_API_TOKEN", None)
         result = subprocess.run(
-            [sys.executable, str(ROOT / "tools/measure.py"), "jev"],
+            [sys.executable, str(ROOT / "tools/measure.py"), "clef"],
             env=env, capture_output=True, text=True,
         )
         self.assertEqual(result.returncode, 1)
-        self.assertIn("evidence/jev.jsonl", result.stderr)
+        self.assertIn("CLOUDFLARE_ACCOUNT_ID", result.stderr)
+        self.assertIn("CLOUDFLARE_API_TOKEN", result.stderr)
         self.assertEqual(result.stdout, "")
 
 
