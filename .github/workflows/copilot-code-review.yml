@@ -1,0 +1,36 @@
+name: Set up the Brickbox Copilot review
+
+on:
+  workflow_dispatch:
+
+jobs:
+  copilot-setup-steps:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install ACR 0.6.0
+        shell: bash
+        run: |
+          set -euo pipefail
+          asset=acr-linux-amd64.tar.gz
+          release=https://github.com/jbaruch/agentic-context-registry/releases/download/v0.6.0
+          install_dir="$RUNNER_TEMP/brickbox-acr"
+          mkdir -p "$install_dir"
+          cd "$install_dir"
+          curl -fsSLO "$release/$asset"
+          curl -fsSLO "$release/checksums.txt"
+          grep " $asset$" checksums.txt | sha256sum --check
+          tar -xzf "$asset"
+          echo "$install_dir" >> "$GITHUB_PATH"
+      - name: Load the Brickbox rules
+        shell: bash
+        run: |
+          set -euo pipefail
+          acr version
+          acr install github:jbaruch/skill-issue-order-handoff@v1.0.0 --agent codex --freshness none --non-interactive
+          acr realize
+          acr check
+          acr list
+          grep -F 'Captured Only' AGENTS.md
