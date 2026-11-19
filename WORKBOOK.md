@@ -5,28 +5,21 @@ team wants to automate common customer questions. Your job is to build
 a skill that helps an agent look up an order and explain whether the
 customer was charged twice.
 
-Here's the first ticket:
+The agent will write an internal note that Billing can use to follow up
+with the customer about order 1042. You'll begin with a kit question to
+see which requests activate the order skill.
 
-> I think I was charged twice for order 1042.
+## Set up your copy
 
-In this workshop, your agent puts its answer in an internal note for
-Billing to review. Here's what we want it to write:
+1. Run the [README setup commands](README.md#before-the-workshop) to clone
+   the workshop repository, choose your agent, and create `1-before`.
+2. Keep that terminal open in the repository for steps marked **Terminal**.
+3. Open the exact folder the setup command prints in your agent. Start a
+   fresh session there.
 
-> **Order 1042 · Billing**
->
-> The customer thinks they paid twice. The order shows one completed $25
-> payment and one pending $25 hold. Ask if the second entry appears as
-> completed on their bank statement.
-
-That's the handoff. Keep the sample note open. Each exercise changes
-how the agent gets part of it right.
-
-Start with the [README setup](README.md#before-the-workshop). Run commands
-marked **Terminal** from the folder you cloned unless a step names a
-different folder. Open the path each command prints in a fresh agent
-session. Pause for **Reflection** after the first run and again after
-the change. Ask your agent what it did and why while that session is open.
-Have it show the instruction, command, or result behind its answer. If it can only infer a cause, ask it to say so.
+Pause for **Reflection** before and after each change. Ask your agent what
+it did and why. In the same session, have it show the instruction, command,
+or result behind its answer. If it can only infer a cause, ask it to say so.
 
 ## 1. Write the support skill
 
@@ -34,13 +27,13 @@ Have it show the instruction, command, or result behind its answer. If it can on
 Its triage skill says it handles both order questions and questions
 about what comes in a kit.
 
-**Before.** Give the agent the [question about kit contents](prompts/product.md).
-In a separate new session from the same folder, give it the
-[double-charge ticket](prompts/order.md). Both are support questions.
-The first needs the product facts. The second needs the order record.
-Paste the whole prompt each time. Both prompts tell your agent to
-choose from the skills in this practice project. Record what it says
-to the customer and which files it reads for each question.
+**Before.** First, paste the full [kit question prompt](prompts/product.md)
+into your agent. The customer asks whether Brickbox kits come with assembly
+instructions.
+
+Open a fresh session in the same practice folder. Paste the full
+[double-charge ticket prompt](prompts/order.md) about order 1042. For
+both requests, record the agent's reply and the files it opened.
 
 **What you build.** Change only the skill description to say it prepares
 a handoff from an incoming Brickbox order ticket.
@@ -50,6 +43,13 @@ what led it to the skill. Compare its replies before and after you
 changed the description. Then keep the description and give the
 handoff four headings in the instructions: customer question, order facts,
 team, and next action. Repeat the order request and read both notes.
+Check that the finished note gives Billing these facts and the next step.
+
+> **Order 1042 · Billing**
+>
+> The customer thinks they paid twice. The order shows one completed $25
+> payment and one pending $25 hold. Ask if the second entry appears as
+> completed on their bank statement.
 
 **Reflection.** Ask your agent what it opened for each question and why.
 If it opened the order skill for the kit question, ask which words in
