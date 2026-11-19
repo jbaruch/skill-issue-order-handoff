@@ -356,19 +356,22 @@ can tell a charge question from a delivery question. Route Unclear to
 your reasoning model, which asks one question.
 
 **Terminal · Set your Cloudflare credentials.** In the Cloudflare
-dashboard, open **Workers AI**, then **Use REST API**. Copy the
-account ID and create a Workers AI API token using the template.
-Run this block in the Bash or Zsh terminal you'll use for Clef.
-Paste each value at its prompt and press Enter. The token is hidden.
+dashboard, select your account and open **Workers AI** → **Use REST API**.
+Choose **Create a Workers AI API Token** and keep that page handy.
 [Cloudflare setup](https://developers.cloudflare.com/workers-ai/get-started/rest-api/)
+
+Run the block below first, in the Bash or Zsh terminal you'll use for
+Clef. At the first prompt, copy the **Workers AI API token** from
+Cloudflare, paste it into the terminal, and press Enter. The terminal
+hides what you paste. At the second prompt, copy and paste the
+**Account ID** from the same Cloudflare account and press Enter.
 
 ```sh
 {
-  printf 'Cloudflare account ID. '
-  IFS= read -r CLOUDFLARE_ACCOUNT_ID
-  printf 'Workers AI token (hidden). '
+  printf 'Workers AI API token (hidden). '
   IFS= read -rs CLOUDFLARE_API_TOKEN
-  printf '\n'
+  printf '\nCloudflare Account ID. '
+  IFS= read -r CLOUDFLARE_ACCOUNT_ID
   export CLOUDFLARE_ACCOUNT_ID CLOUDFLARE_API_TOKEN
 }
 ```
@@ -376,8 +379,13 @@ Paste each value at its prompt and press Enter. The token is hidden.
 **Terminal · After · Clef.** Run from the workshop repo in that same terminal.
 
 ```sh
-python3 tools/measure.py clef --script .workshop/5-clef-before/scripts/route.py > clef.jsonl
+python3 tools/measure.py clef --script .workshop/5-clef-before/scripts/route.py > clef.jsonl &&
+cat clef.jsonl
 ```
+
+The command saves the results in `clef.jsonl` and shows them in the
+terminal. Look for `"source": "clef"` in each ticket's `calls` list.
+On the unclear ticket, the list should also show the Codex follow-up.
 
 If you see a connection error on macOS, try the system certificate file
 and run the Clef command again from the same terminal.
@@ -402,7 +410,8 @@ want the finished Clef script.
 
 ```sh
 python3 tools/start.py 5-solved --agent "$agent" --at .workshop/5-clef-solved
-python3 tools/measure.py clef --script .workshop/5-clef-solved/scripts/route.py > clef.jsonl
+python3 tools/measure.py clef --script .workshop/5-clef-solved/scripts/route.py > clef.jsonl &&
+cat clef.jsonl
 ```
 
 Use the [recorded logs](evidence/README.md#clef) if you skip either live run.
