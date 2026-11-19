@@ -9,9 +9,11 @@ fresh sessions. With the broad description, Codex opened
 `triage-order/SKILL.md` and asked for the order number. With the narrower
 description, it read the product guide and said the kits include
 assembly instructions. It did not open the order skill in that run.
-For the double-charge ticket, it opened the skill and checked order 1042
-in both runs. The final instructions gave the Billing note four headings:
-Customer question, Order facts, Team, and Next action.
+For the [double-charge ticket](../prompts/order.md), Codex opened the
+skill and checked order 1042 in all three versions. The first reply was
+addressed to the customer. The final instructions produced a Billing
+note with four headings: Customer question, Order facts, Team, and
+Next action.
 
 Give your agent the [five recorded runs](skill-selection.jsonl) and the
 two descriptions. Ask why the kit question matched the first description,
@@ -21,18 +23,17 @@ Billing note its four headings.
 
 ## Reuse the lookup
 
-For the [lookup request](../prompts/lookup.md), Codex created
-`scratch_lookup.py` and ran
-`python3 scratch_lookup.py 1042`. After the change, it ran
-`python3 scripts/lookup_order.py 1042`. Both found 2500 cents captured
-and 2500 cents pending.
+For the [same order ticket](../prompts/order.md), Codex wrote and ran
+Python in the terminal to find order 1042. After the change, it ran
+`python3 scripts/lookup_order.py 1042`. Both found 2500 cents captured and
+2500 cents pending.
 
 Ask what the agent had to write in the first run and why it could run
 the supplied file in the second. Reusing the same script gives the same
 result for the same input and data. It saves the tokens a model would
 spend writing a new helper for each order.
 
-The agent reported 932 output tokens in the first run and 474 in the
+The agent reported 1239 output tokens in the first run and 380 in the
 second. The two sessions also had different input and cache usage.
 
 ## Move the save instruction into a rule

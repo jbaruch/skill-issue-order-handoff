@@ -33,9 +33,9 @@ it opened the order skill and asked for an order number. If yours takes
 a different path, ask what it opened and why. Use the recorded reply
 for the comparison and move on.
 
-Open a fresh session in the same practice folder. Paste the full
-[double-charge ticket prompt](prompts/order.md) about order 1042. For
-both requests, record the agent's reply and the files it opened.
+Open a fresh session in the same practice folder. Paste the
+[double-charge ticket](prompts/order.md) about order 1042. For both
+requests, record the agent's reply and the files it opened.
 
 **What you build.** Change only the skill description to say it prepares
 a handoff from an incoming Brickbox order ticket.
@@ -74,12 +74,12 @@ if you skip a run or get a different result.
 python3 tools/start.py 2-before --agent "$agent"
 ```
 
-**Before.** In that folder, give your agent the [lookup request](prompts/lookup.md).
-The skill tells it to write a small helper from a recipe. Open
-`scratch_lookup.py`, the file it wrote to read the order data. If the
-file is missing, ask the agent how it found the order, then use the
-[recorded lookup](evidence/first-three.md#reuse-the-lookup) for the
-comparison and start from `2-solved`.
+**Before.** In that folder, give your agent the [same order ticket](prompts/order.md).
+The skill gives it a recipe for writing a helper. Open
+`scratch_lookup.py` if it created the file. If the agent ran Python
+directly in the terminal, ask it to show you that code. If it skipped
+writing code, use the [recorded lookup](evidence/first-three.md#reuse-the-lookup)
+for the comparison and start from `2-solved`.
 
 **What you build.** Save a reusable lookup in `scripts/lookup_order.py`.
 It takes an order number, reads `data/orders.json`, and prints the
@@ -272,9 +272,9 @@ python3 tools/start.py 6-before --agent "$agent"
 python3 tools/start.py clean --agent "$agent" --at .workshop/package-consumer
 ```
 
-**Before.** In `package-consumer`, give your agent the same order
-ticket. Use the full prompt, including its instruction to work inside
-that folder. Ask which files it used and whether it had a lookup script.
+**Before.** Open a fresh agent session in `package-consumer` and give
+it the [same order ticket](prompts/order.md). After it replies, ask
+which files it used and whether it had a lookup script.
 
 **What you build.** Open `.workshop/6-before/package/agent-plugin.yaml`.
 The manifest is the package's list of files. Declare the triage skill,
