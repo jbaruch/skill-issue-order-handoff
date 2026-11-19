@@ -224,10 +224,11 @@ install path above to `../6-solved/package`. This is a local install.
 
 ### Presenter demo · one artifact, shared rules
 
-Your agent uses the installed rules as it works. An automatic approval
-classifier can use those rules from the agent's context when it checks a
-proposed action. In GitHub, the review job installs the published release
-so Copilot can use the same rules to review a code change.
+Your agent uses the installed rules as it works. Codex Auto uses the
+agent's context to judge proposed actions. In Baruch's evals, it refused
+actions based on the rules in [coding-policy](https://github.com/jbaruch/coding-policy).
+In GitHub, the review job installs the Brickbox release so Copilot can
+use the project's rules to review a code change.
 
 Baruch will show the built-in GitHub Copilot reviewer using the published
 package. After the demo, give your agent the
