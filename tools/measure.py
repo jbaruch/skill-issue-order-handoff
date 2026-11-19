@@ -31,8 +31,12 @@ def codex(prompt):
 
 
 def clef(ticket, script):
+    env = os.environ.copy()
+    macos_certs = Path("/etc/ssl/cert.pem")
+    if sys.platform == "darwin" and macos_certs.is_file():
+        env.setdefault("SSL_CERT_FILE", str(macos_certs))
     result = subprocess.run([sys.executable, str(script), "--live", ticket],
-                            text=True, capture_output=True, timeout=25)
+                            text=True, capture_output=True, timeout=25, env=env)
     if result.stdout:
         return json.loads(result.stdout)
     raise RuntimeError("Clef did not produce a log. Check that the script is available.")

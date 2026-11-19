@@ -387,12 +387,7 @@ The command saves the results in `clef.jsonl` and shows them in the
 terminal. Look for `"source": "clef"` in each ticket's `calls` list.
 On the unclear ticket, the list should also show the Codex follow-up.
 
-If you see a connection error on macOS, try the system certificate file
-and run the Clef command again from the same terminal.
-
-```sh
-export SSL_CERT_FILE=/etc/ssl/cert.pem
-```
+On macOS, the recorder uses the system certificate file by default.
 
 **Agent · Reflection.** Give your agent both logs, `reasoning.jsonl` and
 `clef.jsonl`. If either run is unavailable, use the two saved logs together.
