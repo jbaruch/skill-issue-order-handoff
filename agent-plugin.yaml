@@ -1,0 +1,19 @@
+schemaVersion: 1
+name: jbaruch/skill-issue-order-handoff
+version: 1.0.0
+description: Prepare and save support notes for Brickbox order tickets.
+source:
+  repository: https://github.com/jbaruch/skill-issue-order-handoff
+artifacts:
+  skills:
+    - id: triage-order
+      path: skills/triage-order
+  rules:
+    - id: order-notes
+      path: rules/order-notes.md
+      activation:
+        mode: always
+  hooks:
+    - id: protect-draft-location
+      event: pre-tool-use
+      path: hooks/protect_draft_location.py

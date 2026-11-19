@@ -1,0 +1,5 @@
+[
+  {"id": "b1", "text": "I think I was charged twice for order 1042.", "expected": "billing"},
+  {"id": "s1", "text": "When will order 1058 arrive?", "expected": "shipping"},
+  {"id": "u1", "text": "Something is wrong with order 1061.", "expected": "unclear"}
+]

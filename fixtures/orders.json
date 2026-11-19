@@ -1,0 +1,5 @@
+{
+  "1042": {"currency": "USD", "shipping": "in transit", "payments": [{"status": "captured", "cents": 2500}, {"status": "pending", "cents": 2500}]},
+  "1058": {"currency": "USD", "shipping": "label created", "payments": [{"status": "captured", "cents": 4200}]},
+  "1061": {"currency": "USD", "shipping": "delivered", "payments": [{"status": "captured", "cents": 1900}, {"status": "pending", "cents": 1900}]}
+}
