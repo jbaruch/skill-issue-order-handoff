@@ -431,8 +431,8 @@ Which files did you use for the ticket? Did you have a lookup script?
 **What you build.** Open `.workshop/6-before/package/agent-plugin.yaml`.
 The manifest is the package's list of files. Declare the triage skill,
 the rule, and the hook. The lookup and Clef scripts live inside the skill
-folder and travel with it. Use the [working manifest](agent-plugin.yaml)
-if you need an example.
+folder and travel with it. The local build is version `1.1.0`. Use the
+[working manifest](agent-plugin.yaml) if you need an example.
 
 **Terminal · Validate and install the package.** Run from the workshop repo.
 
@@ -529,6 +529,7 @@ Does my Brickbox kit come with a parts list?
 ```
 
 **Terminal · Install the published package.** Run from the workshop repo.
+This uses the earlier `v1.0.0` release for the eval comparison.
 
 ```sh
 (

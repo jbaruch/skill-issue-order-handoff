@@ -1,6 +1,6 @@
 schemaVersion: 1
 name: jbaruch/skill-issue-order-handoff
-version: 1.0.0
+version: 1.1.0
 description: Prepare and save support notes for Brickbox order tickets.
 source:
   repository: https://github.com/jbaruch/skill-issue-order-handoff
