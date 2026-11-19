@@ -65,10 +65,14 @@ def write_skill(work, skill_dir, stage):
     elif stage in {"2-solved", "3-before", "3-solved"}:
         body = FIXED + NOTE + (SAVE if stage != "3-solved" else "")
     elif stage in {"1-before", "1-description"}:
-        body = """## Step 1 — Answer the request
+        body = """## Step 1 — Find the order number
 
-For a question about kit contents, read `data/product-info.md` and answer in chat.
-For an order ticket, read `data/orders.json` and write a short note in chat.
+If the customer did not give an order number, say you need their order
+number to help and finish here.
+
+## Step 2 — Write the note
+
+Look up that order in `data/orders.json` and write a short note in chat.
 Finish here.
 """
     else:

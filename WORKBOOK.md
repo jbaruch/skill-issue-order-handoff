@@ -39,22 +39,24 @@ In a separate new session from the same folder, give it the
 [double-charge ticket](prompts/order.md). Both are support questions.
 The first needs the product facts. The second needs the order record.
 Paste the whole prompt each time. Both prompts tell your agent to
-choose from the skills in this practice project. Keep track of which
-files it reads for each question.
+choose from the skills in this practice project. Record what it says
+to the customer and which files it reads for each question.
 
 **What you build.** Change only the skill description to say it prepares
 a handoff from an incoming Brickbox order ticket.
 
 **After.** Run both requests again in fresh sessions and ask the agent
-what led it to the skill. Then keep the description and give the
+what led it to the skill. Compare its replies before and after you
+changed the description. Then keep the description and give the
 handoff four headings in the instructions: customer question, order facts,
 team, and next action. Repeat the order request and read both notes.
 
 **Reflection.** Ask your agent what it opened for each question and why.
 If it opened the order skill for the kit question, ask which words in
-the description made the skill look relevant. After the change, ask
-where it found the kit facts. For the double-charge ticket, ask which
-instruction gave the Billing note its four headings.
+the description made the skill look relevant and how its instructions
+affected the reply. After the change, ask where it found the kit facts.
+For the double-charge ticket, ask which instruction gave the Billing
+note its four headings.
 
 **Working copy.** Use `1-description` to see the description edit on its
 own, or `1-solved` for the complete skill. Compare the

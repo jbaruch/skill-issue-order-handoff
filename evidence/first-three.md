@@ -5,16 +5,18 @@ These observations came from separate Codex sessions in new folders.
 ## Skill description and instructions
 
 With the broad description, Codex opened `triage-order/SKILL.md` before
-looking up whether the kits include assembly instructions. With the
-narrower description, it went straight to `data/product-info.md` for the
-answer. For the double-charge ticket, it opened the skill and checked
-order 1042 in both runs. The final instructions gave the Billing note
-four headings: Customer question, Order facts, Team, and Next action.
+replying to the kit question. The skill required an order number, so
+Codex asked for one. With the narrower description, it read
+`data/product-info.md` and said the kit includes assembly instructions.
+For the double-charge ticket, it opened the skill and checked order 1042
+in both runs. The final instructions gave the Billing note four headings:
+Customer question, Order facts, Team, and Next action.
 
 Give your agent the [five recorded runs](skill-selection.jsonl) and the
 two descriptions. Ask why the kit question matched the first description,
-where the answer came from in both runs, and which instruction gave
-the Billing note its four headings.
+which instruction made the agent ask for an order number, and where it
+found the answer after the edit. Then ask which instruction gave the
+Billing note its four headings.
 
 ## Reuse the lookup
 
