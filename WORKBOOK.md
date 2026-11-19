@@ -75,13 +75,19 @@ The skill gives it a recipe for writing a helper. Open
 `scratch_lookup.py` if it created the file. If the agent ran Python
 directly in the terminal, ask it to show you that code. If it skipped
 writing code, use the [recorded lookup](evidence/first-three.md#reuse-the-lookup)
-for the comparison and start from `2-solved`.
+for the before run and go straight to the working copy for the after run.
 
-**What you build.** Save a reusable lookup in `scripts/lookup_order.py`.
-It takes an order number, reads `data/orders.json`, and prints the
-shipping status and payment totals. You can start with the helper you
-just reviewed. Change the skill to call that file rather than giving the
-agent the recipe.
+**Reflection.** In the same session, ask how the agent looked up the
+order. Have it show the code it wrote and the command it ran.
+
+**What you build.** Ask the same agent to keep the helper for future tickets.
+
+> Let's reuse the lookup you just wrote. Save a copy as
+> `scripts/lookup_order.py` that takes an order number. Update the lookup
+> step in the triage-order skill to run that script on future tickets.
+> Show me what changed and how you checked it.
+
+Review the updated skill and the script before opening the next session.
 
 **After.** In a fresh session paste the same lookup request. Both runs
 should find 2500 cents captured and 2500 cents pending. If the agent
