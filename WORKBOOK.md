@@ -146,6 +146,11 @@ the same questions.
 
 ## 5. Route a ticket with Jev
 
+When you write a workflow, choose how each step runs. Code looks up the
+order from an exact number. A decision model picks a team from a fixed
+list. A reasoning model works out what to ask when the ticket is unclear.
+[The rule for choosing a mechanism](https://github.com/jbaruch/coding-policy/blob/main/skills/coding-contracts/references/script-delegation.md)
+
 **Start here.** Use the three messages in [the routing cases](fixtures/routes.json).
 The task is to choose Billing, Shipping, or Unclear. If the message is
 unclear, the next step is one question for the customer.

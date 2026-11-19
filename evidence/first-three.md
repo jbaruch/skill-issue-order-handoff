@@ -26,6 +26,9 @@ the supplied file in the second. Reusing the same script gives the same
 result for the same input and data. It saves the tokens a model would
 spend writing a new helper for each order.
 
+The agent reported 556 output tokens in the first run and 264 in the
+second. The two sessions also had different input and cache usage.
+
 ## Move the save instruction into a rule
 
 The save-only request supplied the complete note. In the first run,
