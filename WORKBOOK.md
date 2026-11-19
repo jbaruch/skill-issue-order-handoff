@@ -152,9 +152,10 @@ already made. "Which project rules were loaded at startup? Which skill
 did you open for the save, if any? What made you choose that folder?
 Show me the evidence from that run."
 
-Then ask the second session how an always-on rule differs from a skill.
-Find which rule came from this practice folder and what it required
-the agent to do. Some of the other rules may come from your own setup.
+Then ask the second session "If a skill suggested a different folder,
+what would you follow and why?" Have it explain what the practice
+folder's rule required. Some of the other rules may come from your
+own setup.
 
 **Working copy.** Run `python3 tools/start.py 3-solved --agent "$agent"`
 from the workshop repository. Open the printed folder in a fresh
