@@ -17,9 +17,10 @@ see which requests activate the order skill.
 3. Open the exact folder the setup command prints in your agent. Start a
    fresh session there.
 
-Pause for **Reflection** before and after each change. Ask your agent what
-it did and why. In the same session, have it show the instruction, command,
-or result behind its answer. If it can only infer a cause, ask it to say so.
+Use the **Reflection** prompts to ask your agent what it did and why.
+Ask in the session where it did the work. Have it show the instruction,
+command, or result behind its answer. If it can only infer a cause, ask
+it to say so.
 
 ## 1. Frontmatter matters
 
@@ -116,19 +117,10 @@ from that folder.
 python3 tools/start.py 3-before --agent "$agent"
 ```
 
-**Before.** Open the printed folder in a fresh agent session. It has an
-example note in `support/`. Start by asking the agent:
-
-> Which rules came from this folder when the session started? Point to
-> the rule file for each one.
-> How do those rules differ from skills?
-
-Check any paths your agent names. Rules it reports may come from its
-personal setup. You'll add this practice folder's rule in the next step.
-
-Then paste the [save request](prompts/save.md) in the same session.
-The note is already written. Check where the agent saved it. In the
-recorded run it saved the note in `support/`.
+**Before.** Open the printed folder in a fresh agent session and paste
+the [save request](prompts/save.md) as the first message. Check where the
+note landed and keep that session available for Reflection. In the
+recorded run, the agent saved the note next to the example in `support/`.
 
 **What you build.** Open `triage-order/SKILL.md` in this practice folder.
 In Codex, look under `.agents/skills/`. In Claude Code, use
@@ -140,17 +132,19 @@ for Codex or `CLAUDE.md` for Claude Code. In Cursor, use
 `.cursor/rules/order-notes.mdc` and set `alwaysApply: true` in its
 header. Remove the save instruction from the skill.
 
-**After.** Start a fresh session in the same folder. Ask the same
-opening questions, then paste the same save request. The new note
-should be in `drafts/`. If the agent saves it elsewhere, ask which
-instruction it followed and compare with the [recorded saves](evidence/first-three.md#move-the-save-instruction-into-a-rule).
+**After.** Start a fresh session in the same folder and paste the same
+save request first. Compare both file paths and check that the text
+matches. The second note should be in `drafts/`. If the agent saves it
+elsewhere, compare with the [recorded saves](evidence/first-three.md#move-the-save-instruction-into-a-rule).
 
-**Reflection.** Ask before and after the change. "Which rules are loaded
-when this session starts? What's the difference between an always-on
-rule and a skill in this project? Which skill did you open for the save
-request, if any? Why did you choose that folder? Show me the instruction."
-A save-only request gives the project rule a job even if the agent
-never opens the triage skill.
+**Reflection.** After both saves, ask each session about the save it
+already made. "Which project rules were loaded at startup? Which skill
+did you open for the save, if any? What made you choose that folder?
+Show me the evidence from that run."
+
+Then ask the second session how an always-on rule differs from a skill.
+Find which rule came from this practice folder and what it required
+the agent to do. Some of the other rules may come from your own setup.
 
 **Working copy.** Run `python3 tools/start.py 3-solved --agent "$agent"`
 from the workshop repository. Open the printed folder in a fresh
